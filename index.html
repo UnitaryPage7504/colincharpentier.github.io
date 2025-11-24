@@ -308,6 +308,41 @@
             transform: translateY(-5px);
         }
 
+        /* Styles pour la section contact centrée */
+#contact .section-title {
+    display: block;
+    text-align: center;
+}
+
+#contact .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contact-info {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.contact-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-buttons .btn {
+        margin: 0.25rem 0;
+    }
+}
+
         .card {
             background-color: rgba(30, 30, 30, 0.85);
             border: none;
@@ -882,6 +917,7 @@
     <li class="nav-item"><a class="nav-link" href="#stages">Stages</a></li>
     <li class="nav-item"><a class="nav-link" href="#cartotheque">Cartothèque</a></li>
     <li class="nav-item"><a class="nav-link" href="#map-section">Parcours</a></li>
+    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
 </ul>
             </div>
         </div>
@@ -1132,13 +1168,13 @@
                             <img src="https://h4geo.com/wp-content/uploads/2017/06/logo.png" 
                                  alt="Logo H4GEO" class="company-logo">
                         </div>
-                        <h5 class="card-title">H4GEO - Montréal</h5>
+                        <h5 class="card-title">H4GEO - 2024</h5>
                         <p class="card-text flex-grow-1">
                             Arpentage et collecte de données LiDAR pour modélisation BIM d'écoles.
                         </p>
                         <div class="mt-auto">
                             <span class="badge bg-primary mb-2">LiDAR</span>
-                            <span class="badge bg-primary mb-2">Cyclone</span>
+                            <span class="badge bg-primary mb-2">BIM</span>
                             <span class="badge bg-primary mb-2">Arpentage</span>
                             <a href="Stage_H4GEO.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
                         </div>
@@ -1343,8 +1379,6 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Rechercher un lieu :</label>
-                                <input type="text" id="search-location" class="form-control" placeholder="Nom du lieu...">
                             </div>
                         </div>
                     </div>
@@ -1358,31 +1392,55 @@
 </section>
 
     <!-- SECTION CONTACT -->
-
-                <div class="col-lg-6">
-                    <div class="bg-section h-100 fade-in">
-                        <h4 class="mb-3">Coordonnées</h4>
-                        <p>N'hésitez pas à me contacter pour discuter de projets, stages ou opportunités professionnelles.</p>
-                        
-                        <div class="mt-4">
-                            <p><i class="fas fa-envelope me-2 text-primary"></i> charpentier.colin.63@gmail.com</p>
-                            <p><i class="fas fa-phone me-2 text-primary"></i> +33 6 01 80 24 85</p>
-                            <p><i class="fas fa-map-marker-alt me-2 text-primary"></i> Rennes, France</p>
+<section id="contact" class="py-5">
+    <div class="container">
+        <h2 class="section-title text-center">Contact</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="bg-section fade-in text-center">
+                    <h4 class="mb-3">Coordonnées</h4>
+                    <p class="mb-4">N'hésitez pas à me contacter pour discuter de projets, stages ou opportunités professionnelles.</p>
+                    
+                    <div class="contact-info mb-4">
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-envelope text-primary me-3 fs-5"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                <a href="mailto:charpentier.colin.63@gmail.com" class="text-light">charpentier.colin.63@gmail.com</a>
+                            </div>
                         </div>
-                        
-                        <div class="mt-4">
-                            <a href="mailto:charpentier.colin.63@gmail.com" class="btn btn-outline-primary me-2 mb-2">
-                                <i class="fas fa-envelope me-1"></i> M'écrire un email
-                            </a>
-                            <a href="https://www.linkedin.com/in/colin-charpentier-a416b0229" class="btn btn-outline-primary mb-2">
-                                <i class="fab fa-linkedin-in me-1"></i> LinkedIn
-                            </a>
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-phone text-primary me-3 fs-5"></i>
+                            <div>
+                                <strong>Téléphone</strong><br>
+                                <a href="tel:+33601802485" class="text-light">+33 6 01 80 24 85</a>
+                            </div>
                         </div>
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-map-marker-alt text-primary me-3 fs-5"></i>
+                            <div>
+                                <strong>Localisation</strong><br>
+                                <span class="text-light">Rennes, France</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-graduation-cap text-primary me-3 fs-5"></i>
+                            <div>
+                                <strong>Formation</strong><br>
+                                <span class="text-light">Master 2 SIGAT</span>
+                            </div>
+                        </div>
+                    </div>
+                        </a>
+                        <a href="https://www.linkedin.com/in/colin-charpentier-a416b0229" class="btn btn-outline-primary mb-2">
+                            <i class="fab fa-linkedin-in me-2"></i>LinkedIn
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- FOOTER -->
     <footer class="py-4">

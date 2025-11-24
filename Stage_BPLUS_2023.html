@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage - Colin Charpentier</title>
+
+    <!-- Bootstrap CSS -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+        crossorigin="anonymous"
+    >
+
+    <!-- Police Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS personnalisé -->
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5a52d5;
+            --secondary: #ff6584;
+            --dark: #121212;
+            --dark-light: #1e1e1e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #adb5bd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Image de fond fixe avec superposition sombre */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550684376-efcbd6e3f031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -2;
+            opacity: 0.15;
+        }
+
+        /* Couche sombre supplémentaire pour améliorer la lisibilité */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%);
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            color: var(--light) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--gray-light) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+            position: relative;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+            position: relative;
+            display: inline-block;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .stage-header {
+            padding: clamp(6rem, 15vw, 8rem) 0 clamp(3rem, 8vw, 5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stage-header h1 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .stage-header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+        }
+
+        .bg-section {
+            background-color: rgba(30, 30, 30, 0.85);
+            border-radius: 15px;
+            padding: clamp(1.5rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .stage-image {
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+            max-width: 100%;
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        .stage-image:hover {
+            transform: scale(1.03);
+        }
+
+        .btn {
+            border-radius: 30px;
+            padding: 0.75rem clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Animation pour les sections */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section entreprise */
+        .company-section {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .company-logo {
+            max-width: 200px;
+            max-height: 100px;
+            object-fit: contain;
+            margin: 1rem auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .company-sector {
+            color: var(--gray-light);
+            font-size: 1rem;
+        }
+
+        /* Infos stage */
+        .stage-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h5 {
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .info-card p {
+            color: var(--gray-light);
+            margin: 0;
+        }
+
+        /* Responsive */
+        .container {
+            max-width: 100%;
+            padding-left: clamp(1rem, 3vw, 2rem);
+            padding-right: clamp(1rem, 3vw, 2rem);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-collapse {
+                background-color: rgba(18, 18, 18, 0.95);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                backdrop-filter: blur(10px);
+            }
+            
+            .stage-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .company-logo {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .bg-section {
+                padding: 1.5rem;
+            }
+            
+            .stage-header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .company-logo {
+                max-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Colin Charpentier</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                    aria-controls="navbar" aria-expanded="false" aria-label="Afficher le menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#projects">Projets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#stages">Stages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#cartotheque">Cartothèque</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#map-section">Parcours</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- EN-TÊTE DU STAGE -->
+    <header class="stage-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Stage - Bourges Plus</h1>
+                    <p class="lead">
+                        Création d'une scène 3D web pour communiquer sur le NPNRU au grand public.
+                    </p>
+                    <div class="d-flex flex-wrap">
+                        <a href="index.html#map-section" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Retour aux stages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL DU STAGE -->
+    <section id="stage-content" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    
+                    <!-- Section entreprise -->
+                    <div class="company-section fade-in">
+                        <h3 class="mb-4">Stage réalisé chez</h3>
+                        
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgzM90UMRCr2M-4WuCPIE6mNOuxDKYsCN6Vw&s" 
+                             alt="Logo Bourges Plus" 
+                             class="company-logo">
+                        
+                        <div class="company-name">Bourges Plus</div>
+                        <div class="company-sector">Communauté d'agglomération • Bourges, France</div>
+                    </div>
+
+                    <!-- Informations du stage -->
+                    <div class="bg-section fade-in">
+                        <div class="stage-info-grid">
+                            <div class="info-card">
+                                <i class="fas fa-calendar-alt"></i>
+                                <h5>Durée</h5>
+                                <p>2 mois</p>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <h5>Localisation</h5>
+                                <p>Bourges, France</p>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h5>Niveau</h5>
+                                <p>BUT 2 CS VTD</p>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-clock"></i>
+                                <h5>Période</h5>
+                                <p>2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description détaillée -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Description du Stage</h2>
+                        <p>
+                            Stage réalisé au sein de la communauté d'agglomération de Bourges Plus. Dans le cadre du NPNRU (Nouveau Programme National de Renouvellement Urbain), j'ai été chargé de créer une scène 3D web interactive permettant de visualiser les projets urbains en cours et à venir. L'objectif était de fournir un outil de communication interactif permettant de visualiser facilement les transformations du quartier concerné.
+                        </p>
+                        
+                        <h3 class="mt-4">Contexte et Enjeux</h3>
+                        <p>
+                            Bourges Nord, un quartier prioritaire de la ville de Bourges, est concerné par le programme de NPNRU, visant à rénover et revitaliser ce territoire. Ce projet d'aménagement à grande échelle impacte grandement la vie des habitants. L'objectif de mon stage, à la demande du service politique de la ville, a été de fournir un support cartographique 3D interactif permettant à ces habitants de connaître l'ampleur du projet, et plus précisément de savoir quelle type de transformation connaitra leur immeuble.
+                                                </p>
+                        <ul>
+                        </ul>
+                        
+                        <h3 class="mt-4">Missions principales</h3>
+                        <ul>
+                            <li>Trouver une symbologie adaptée à une communication claire (aplat de couleur concernant le type de travaux sur les bâtiments)</li>
+                            <li>Découverte du système d'information géographique (SIG) pour la gestion des données urbaines</li>
+                            <li>Apprentissage de la migration web des données géographiques sur ArcGIS</li>
+                        </ul>
+                    </div>
+
+                    <!-- Compétences et technologies -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Compétences Mobilisées</h2>
+                        
+                        <h4 class="mt-4">Technologies utilisées</h4>
+                        <div class="mt-3">
+                            <span class="badge bg-primary mb-2">ArcGIS Pro</span>
+                        </div>
+                        
+                        <h4 class="mt-4">Compétences développées</h4>
+                        <ul>
+                            <li>SIG (Système d'Information Géographique)</li>
+                            <li>Traitement de données et extrusion 3D</li>
+                            <li>Communication web (écrite)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Résultats et réalisations -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Conclusions</h2>
+                        
+                        <h4 class="mt-4">Livrables produits</h4>
+                        <ul>
+                            <li>Site web concernant l'avancée du projet</li>
+                            <li>Scène web 3D intégrée avec le descriptif des travaux</li>
+                        </ul>
+                        
+                        <h4 class="mt-4">Apports personnels</h4>
+                        <ul>
+                            <li>Ce stage a été mon premier en SIG, bien qu'il n'ai pas exigé de compétences géomatiques poussées, c'est cette expérience qui m'a convaincu que la géomatique était le domaine vers lequel je voulais poursuivre mes études. 
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="bg-section fade-in">
+    <h2 class="section-title">Rapport de Stage</h2>
+    <div class="pdf-container">
+        <embed 
+            src="https://media.licdn.com/dms/document/media/v2/D4E2DAQFT2-T-3LHStA/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1706107132223?e=1764806400&v=beta&t=YqrkIzvQsekjszlYXYDPiJw2w02iYUk2Ft7Tnc-6CC4" 
+            type="application/pdf" 
+            width="100%" 
+            height="600px"
+            class="pdf-viewer"
+        >
+    </div>
+    <div class="mt-3 text-center">
+        <a href="https://media.licdn.com/dms/document/media/v2/D4E2DAQFT2-T-3LHStA/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1706107132223?e=1764806400&v=beta&t=YqrkIzvQsekjszlYXYDPiJw2w02iYUk2Ft7Tnc-6CC4" download class="btn btn-primary">
+            <i class="fas fa-download me-2"></i>Télécharger le PDF
+        </a>
+    </div>
+</div>
+
+    <!-- FOOTER -->
+    <footer class="py-4">
+        <div class="container text-center">
+            <p>&copy; <span id="year"></span> Colin Charpentier - Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/colin-charpentier-a416b0229"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+        crossorigin="anonymous">
+    </script>
+
+    <!-- Script principal -->
+    <script>
+        // Année automatique dans le footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+        
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            // Vérifier au chargement
+            fadeInOnScroll();
+            
+            // Vérifier au défilement
+            window.addEventListener('scroll', fadeInOnScroll);
+        });
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

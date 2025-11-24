@@ -53,6 +53,73 @@
             position: relative;
         }
 
+        /* Styles pour la nouvelle grille de compétences */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+}
+
+.skill-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skill-name {
+    font-weight: 500;
+    color: var(--light);
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Assurer que toutes les sections aient la même hauteur */
+.bg-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Responsive pour la grille */
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 1rem;
+    }
+    
+    .skill-logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .skill-name {
+        font-size: 0.8rem;
+    }
+    
+    /* Centrer aussi sur mobile */
+    .text-center-mobile {
+        text-align: center;
+    }
+}
+
         /* Image de fond fixe avec superposition sombre */
         body::before {
             content: '';
@@ -809,12 +876,13 @@
 
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#cartotheque">Cartothèque</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#map-section">Parcours</a></li>
-                </ul>
+    <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+    <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
+    <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
+    <li class="nav-item"><a class="nav-link" href="#stages">Stages</a></li>
+    <li class="nav-item"><a class="nav-link" href="#cartotheque">Cartothèque</a></li>
+    <li class="nav-item"><a class="nav-link" href="#map-section">Parcours</a></li>
+</ul>
             </div>
         </div>
     </nav>
@@ -949,159 +1017,160 @@
     </div>
 </section>
 
-    <!-- SECTION COMPÉTENCES -->
-    <section id="skills" class="py-5">
-        <div class="container">
-            <h2 class="section-title">Compétences & logiciels</h2>
-            
-            <!-- Bande déroulante des compétences -->
-            <div class="skills-scroll-container fade-in">
-                <div class="skills-scroll-track">
-                    <!-- QGIS -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" alt="QGIS" class="skill-logo">
-                        <span class="skill-name">QGIS</span>
-                    </div>
-                    
-                    <!-- ArcGIS -->
-                    <div class="skill-item">
-                        <img src="https://www.esri.com/content/dam/esrisites/en-us/common/icons/product-logos/ArcGIS-Pro.png" alt="ArcGIS" class="skill-logo">
-                        <span class="skill-name">ArcGIS</span>
-                    </div>
-                    
-                    <!-- SQL -->
-                    <div class="skill-item">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2772/2772128.png" alt="SQL" class="skill-logo">
-                        <span class="skill-name">SQL</span>
-                    </div>
-                    
-                    <!-- Python -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python" class="skill-logo">
-                        <span class="skill-name">Python</span>
-                    </div>
-                    
-                    <!-- R -->
-                    <div class="skill-item">
-                        <img src="https://www.r-project.org/logo/Rlogo.png" alt="R" class="skill-logo">
-                        <span class="skill-name">R</span>
-                    </div>
-                    
-                    <!-- FME -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/FME_Software_Logo.svg/1200px-FME_Software_Logo.svg.png" alt="FME" class="skill-logo">
-                        <span class="skill-name">FME</span>
-                    </div>
-                    
-                    <!-- HTML -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML" class="skill-logo">
-                        <span class="skill-name">HTML</span>
-                    </div>
-                    
-                    <!-- CSS -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" alt="CSS" class="skill-logo">
-                        <span class="skill-name">CSS</span>
-                    </div>
-
-                    <!-- Illustrator -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/500px-Adobe_Illustrator_CC_icon.svg.png" alt="Illustrator" class="skill-logo">
-                        <span class="skill-name">Illustrator</span>
-                    </div>
-                    
-                    <!-- JavaScript -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" class="skill-logo">
-                        <span class="skill-name">JavaScript</span>
-                    </div>
-                    
-                    <!-- Répétition pour l'animation continue -->
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" alt="QGIS" class="skill-logo">
-                        <span class="skill-name">QGIS</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://www.esri.com/content/dam/esrisites/en-us/common/icons/product-logos/ArcGIS-Pro.png" alt="ArcGIS" class="skill-logo">
-                        <span class="skill-name">ArcGIS</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2772/2772128.png" alt="SQL" class="skill-logo">
-                        <span class="skill-name">SQL</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python" class="skill-logo">
-                        <span class="skill-name">Python</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://www.r-project.org/logo/Rlogo.png" alt="R" class="skill-logo">
-                        <span class="skill-name">R</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://www.safe.com/wp-content/uploads/2020/06/FME-2020-Color-Positive.png" alt="FME" class="skill-logo">
-                        <span class="skill-name">FME</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML" class="skill-logo">
-                        <span class="skill-name">HTML</span>
-                    </div>
-
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/500px-Adobe_Illustrator_CC_icon.svg.png" alt="Illustrator" class="skill-logo">
-                        <span class="skill-name">Illustrator</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" alt="CSS" class="skill-logo">
-                        <span class="skill-name">CSS</span>
-                    </div>
-                    
-                    <div class="skill-item">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" class="skill-logo">
-                        <span class="skill-name">JavaScript</span>
+   <!-- SECTION COMPÉTENCES -->
+<section id="skills" class="py-5">
+    <div class="container">
+        <h2 class="section-title">Compétences & logiciels</h2>
+        
+        <!-- Grille des compétences -->
+        <div class="row g-4">
+            <!-- SIG -->
+            <div class="col-md-4">
+                <div class="bg-section fade-in h-100">
+                    <h4 class="mb-3"><i class="fas fa-map me-2 text-primary"></i>SIG & Cartographie</h4>
+                    <p>Maîtrise des logiciels SIG pour l'analyse et la visualisation de données géospatiales.</p>
+                    <div class="skills-grid mt-3">
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" alt="QGIS" class="skill-logo">
+                            <span class="skill-name">QGIS</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://www.esri.com/content/dam/esrisites/en-us/common/icons/product-logos/ArcGIS-Pro.png" alt="ArcGIS" class="skill-logo">
+                            <span class="skill-name">ArcGIS</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/FME_Software_Logo.svg/1200px-FME_Software_Logo.svg.png" alt="FME" class="skill-logo">
+                            <span class="skill-name">FME</span>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Détails des compétences -->
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="bg-section fade-in">
-                        <h4 class="mb-3"><i class="fas fa-desktop me-2"></i>Logiciels SIG</h4>
-                        <p>Maîtrise approfondie des principaux logiciels SIG pour la création, l'analyse et la visualisation de données géospatiales.</p>
-                        <div class="mt-3">
-                            <span class="badge bg-primary mb-2">QGIS</span>
-                            <span class="badge bg-primary mb-2">ArcGIS Pro</span>
-                            <span class="badge bg-primary mb-2">ArcGIS Online</span>
-                            <span class="badge bg-primary mb-2">FME</span>
-                            <span class ="badge bg-primary mb-2">Illustrator</span>
+            <!-- Web & Design CENTRÉ -->
+            <div class="col-md-4">
+                <div class="bg-section fade-in h-100">
+                    <h4 class="mb-3 text-center"><i class="fas fa-laptop-code me-2 text-primary"></i>Web & Design</h4>
+                    <p class="text-center">Création d'interfaces web et de visualisations attractives.</p>
+                    <div class="skills-grid mt-3">
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/1200px-HTML5_logo_and_wordmark.svg.png" alt="HTML" class="skill-logo">
+                            <span class="skill-name">HTML</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" alt="CSS" class="skill-logo">
+                            <span class="skill-name">CSS</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" class="skill-logo">
+                            <span class="skill-name">JavaScript</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/500px-Adobe_Illustrator_CC_icon.svg.png" alt="Illustrator" class="skill-logo">
+                            <span class="skill-name">Illustrator</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="bg-section fade-in">
-                        <h4 class="mb-3"><i class="fas fa-code me-2"></i>Langages & Développement</h4>
-                        <p>Connaissances en programmation pour l'analyse de données, l'automatisation de processus et le développement d'applications web.</p>
-                        <div class="mt-3">
-                            <span class="badge bg-secondary mb-2">Python</span>
-                            <span class="badge bg-secondary mb-2">R</span>
-                            <span class="badge bg-secondary mb-2">SQL</span>
-                            <span class="badge bg-secondary mb-2">HTML/CSS</span>
-                            <span class="badge bg-secondary mb-2">JavaScript</span>
+            </div>
+            
+            <!-- Programmation -->
+            <div class="col-md-4">
+                <div class="bg-section fade-in h-100">
+                    <h4 class="mb-3"><i class="fas fa-code me-2 text-secondary"></i>Programmation</h4>
+                    <p>Développement et analyse de données avec différents langages de programmation.</p>
+                    <div class="skills-grid mt-3">
+                        <div class="skill-item text-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" alt="Python" class="skill-logo">
+                            <span class="skill-name">Python</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://www.r-project.org/logo/Rlogo.png" alt="R" class="skill-logo">
+                            <span class="skill-name">R</span>
+                        </div>
+                        <div class="skill-item text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2772/2772128.png" alt="SQL" class="skill-logo">
+                            <span class="skill-name">SQL</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- SECTION STAGES -->
+<section id="stages" class="py-5">
+    <div class="container">
+        <h2 class="section-title">Mes Stages</h2>
+        <div class="row g-4">
+            
+            <!-- Stage Bourges Plus 2025 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm fade-in">
+                    <div class="card-body d-flex flex-column">
+                        <div class="logo-container mb-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244" 
+                                 alt="Logo Bourges Plus" class="company-logo">
+                        </div>
+                        <h5 class="card-title">Bourges Plus - 2025</h5>
+                        <p class="card-text flex-grow-1">
+                            Dashboard ArcGIS sur le risque inondation dans le cadre du PICS.
+                        </p>
+                        <div class="mt-auto">
+                            <span class="badge bg-primary mb-2">ArcGIS Pro</span>
+                            <span class="badge bg-primary mb-2">QGIS</span>
+                            <span class="badge bg-primary mb-2">Dashboard</span>
+                            <a href="Stage_BPLUS_2025.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Stage H4GEO -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm fade-in">
+                    <div class="card-body d-flex flex-column">
+                        <div class="logo-container mb-3">
+                            <img src="https://h4geo.com/wp-content/uploads/2017/06/logo.png" 
+                                 alt="Logo H4GEO" class="company-logo">
+                        </div>
+                        <h5 class="card-title">H4GEO - Montréal</h5>
+                        <p class="card-text flex-grow-1">
+                            Arpentage et collecte de données LiDAR pour modélisation BIM d'écoles.
+                        </p>
+                        <div class="mt-auto">
+                            <span class="badge bg-primary mb-2">LiDAR</span>
+                            <span class="badge bg-primary mb-2">Cyclone</span>
+                            <span class="badge bg-primary mb-2">Arpentage</span>
+                            <a href="Stage_H4GEO.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage Bourges Plus 2023 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm fade-in">
+                    <div class="card-body d-flex flex-column">
+                        <div class="logo-container mb-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244" 
+                                 alt="Logo Bourges Plus" class="company-logo">
+                        </div>
+                        <h5 class="card-title">Bourges Plus - 2023</h5>
+                        <p class="card-text flex-grow-1">
+                            Création d'une scène 3D web pour communiquer sur le NPNRU.
+                        </p>
+                        <div class="mt-auto">
+                            <span class="badge bg-primary mb-2">ArcGIS Pro</span>
+                            <span class="badge bg-primary mb-2">3D Web</span>
+                            <span class="badge bg-primary mb-2">Communication</span>
+                            <a href="Stage_BPLUS_2023.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
         <!-- SECTION CARTOTHEQUE -->
     <section id="cartotheque" class="py-5">
         <div class="container">
@@ -1321,7 +1390,6 @@
             <p>&copy; <span id="year"></span> Colin Charpentier - Tous droits réservés.</p>
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/colin-charpentier-a416b0229"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:charpentier.colin.63@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </footer>
@@ -1413,7 +1481,7 @@
                 lng: 2.369027152929191,
                 description: "Réalisation d'un Dashboard ArcGIS sur le risque inondation - 2025",
                 icon: "internship",
-                logo: "https://via.placeholder.com/80x60/6c63ff/ffffff?text=BP"
+                logo: "https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
             },
             {
                 name: "H4GEO - Montréal",
@@ -1432,7 +1500,7 @@
                 lng: 2.368772743043781,
                 description: "Réalisation d'une Carte 3D Web sur le NPNRU - 2023",
                 icon: "internship",
-                logo: "https://via.placeholder.com/80x60/6c63ff/ffffff?text=BP"
+                logo: "https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
             },
             {
                 name: "Lyon",

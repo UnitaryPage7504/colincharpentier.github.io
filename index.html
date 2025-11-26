@@ -777,7 +777,13 @@
             margin-left: -0.5rem;
             margin-right: -0.5rem;
         }
+.leaflet-container {
+    background: var(--dark) !important;
+}
 
+.map-tiles {
+    filter: brightness(0.8) contrast(1.1);
+}
         .col-md-6, .col-md-4, .col-md-8 {
             padding-left: 0.5rem;
             padding-right: 0.5rem;
@@ -1715,11 +1721,27 @@
             // Centrer sur la France avec un zoom adapté
             map = L.map('map').setView([46.603354, 1.888334], 6);
             
-            // Ajout du fond de carte
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                className: 'map-tiles'
-            }).addTo(map);
+           // Différents fonds de carte
+const baseMaps = {
+    "OpenStreetMap": L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }),
+    "Sombre": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors, © CartoDB'
+    }),
+    "Satellite": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri'
+    }),
+    "IGN": L.tileLayer('https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}', {
+        attribution: '© IGN'
+    })
+};
+
+// Ajouter le fond par défaut
+baseMaps["OpenStreetMap"].addTo(map);
+
+// Ajouter le contrôleur de fonds de carte
+L.control.layers(baseMaps).addTo(map);
 
             // Icônes personnalisées
             const iconColors = {

@@ -1509,9 +1509,11 @@
             });
         });
 
-        // CARTE INTERACTIVE
+               // CARTE INTERACTIVE - Version avec regroupement des points
         let map;
         let markers = [];
+        
+        // Données existantes
         let locations = [
             {
                 name: "Université Rennes 2",
@@ -1531,12 +1533,11 @@
                 icon: "education",
                 logo: "https://yt3.googleusercontent.com/ytc/AIdro_mEkRms5WMpBcSknExLRfOo_0kO4AOslbbWHmd0zSXIJw=s900-c-k-c0x00ffffff-no-rj"
             },
-            // NOUVELLE EXPÉRIENCE - Bourges Plus (la plus récente)
             {
                 name: "Bourges Plus",
                 type: "internship",
-                lat: 47.063068823112786,
-                lng: 2.369027152929191,
+                lat: 47.06319108827693,
+                lng: 2.368772743043781,
                 description: "Réalisation d'un Dashboard ArcGIS sur le risque inondation - 2025",
                 icon: "internship",
                 logo: "https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
@@ -1550,7 +1551,6 @@
                 icon: "internship",
                 logo: "https://h4geo.com/wp-content/uploads/2017/06/logo.png"
             },
-            // ANCIENNE EXPÉRIENCE - Bourges Plus
             {
                 name: "Bourges Plus",
                 type: "internship",
@@ -1635,7 +1635,7 @@
             {
                 name: "Ventilation spatiale : Quels quartiers sont les plus denses de Clermont-Ferrand ?",
                 type: "map",
-                lat: 45.7500,
+                lat: 45.7772,
                 lng: 3.0870,
                 description: "Désagréger la population par IRIS à l'échelle des bâtiments.",
                 icon: "map",
@@ -1690,6 +1690,25 @@
 
         // Fusionner les locations existantes avec les nouvelles locations de cartes
         const allLocations = [...locations, ...cartothequeLocations];
+        
+        // Regrouper les locations par coordonnées et type
+        const groupedLocations = {};
+        
+        allLocations.forEach(location => {
+            const key = `${location.lat}_${location.lng}_${location.type}`;
+            
+            if (!groupedLocations[key]) {
+                groupedLocations[key] = {
+                    lat: location.lat,
+                    lng: location.lng,
+                    type: location.type,
+                    icon: location.icon,
+                    locations: []
+                };
+            }
+            
+            groupedLocations[key].locations.push(location);
+        });
 
         // Initialisation de la carte
         function initMap() {
@@ -1707,44 +1726,65 @@
                 education: '#6c63ff',
                 internship: '#ff6584', 
                 search: '#ffc107',
-                map: '#4CAF50' // Nouvelle couleur pour les cartes
+                map: '#4CAF50'
             };
 
-            // Ajout des marqueurs
-            allLocations.forEach(location => {
+            // Ajout des marqueurs groupés
+            Object.values(groupedLocations).forEach(group => {
                 const customIcon = L.divIcon({
                     className: 'custom-marker',
-                    html: `<div style="background-color: ${iconColors[location.icon]}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white;"></div>`,
+                    html: `<div style="background-color: ${iconColors[group.icon]}; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white;"></div>`,
                     iconSize: [26, 26],
                     iconAnchor: [13, 13]
                 });
 
-                const popupContent = location.logo ? 
-                    `<div style="color: #333; min-width: 200px;">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                            <img src="${location.logo}" style="width: 40px; height: 40px; object-fit: contain; background: white; padding: 5px; border-radius: 5px;">
-                            <div>
-                                <h6 style="margin: 0; color: ${iconColors[location.icon]}">${location.name}</h6>
-                                <p style="margin: 0; font-size: 14px;">${location.description}</p>
+                // Créer le contenu du popup groupé
+                let popupContent = `<div style="color: #333; min-width: 250px; max-height: 400px; overflow-y: auto;">`;
+                
+                // Titre du groupe
+                const groupTitle = group.type === 'education' ? '📚 Études' : 
+                                 group.type === 'internship' ? '💼 Stages' : 
+                                 group.type === 'map' ? '🗺️ Cartes' : '🔍 Recherche';
+                
+                popupContent += `<h6 style="margin: 0 0 15px 0; color: ${iconColors[group.icon]}; border-bottom: 2px solid ${iconColors[group.icon]}; padding-bottom: 5px;">${groupTitle}</h6>`;
+                
+                // Contenu pour chaque location du groupe
+                group.locations.forEach((location, index) => {
+                    if (index > 0) {
+                        popupContent += `<hr style="margin: 10px 0; border-color: #eee;">`;
+                    }
+                    
+                    if (location.logo) {
+                        popupContent += `
+                            <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px;">
+                                <img src="${location.logo}" style="width: 40px; height: 40px; object-fit: contain; background: white; padding: 5px; border-radius: 5px;">
+                                <div style="flex: 1;">
+                                    <h6 style="margin: 0 0 5px 0; font-size: 14px;">${location.name}</h6>
+                                    <p style="margin: 0; font-size: 13px; color: #666;">${location.description}</p>
+                                </div>
                             </div>
-                        </div>
-                        <small style="color: #666;">${location.type === 'education' ? '📚 Études' : location.type === 'internship' ? '💼 Stage' : location.type === 'map' ? '🗺️ Carte' : '🔍 Recherche'}</small>
-                    </div>` :
-                    `<div style="color: #333;">
-                        <h6 style="margin: 0 0 5px 0; color: ${iconColors[location.icon]}">${location.name}</h6>
-                        <p style="margin: 0; font-size: 14px;">${location.description}</p>
-                        <small style="color: #666;">${location.type === 'education' ? '📚 Études' : location.type === 'internship' ? '💼 Stage' : location.type === 'map' ? '🗺️ Carte' : '🔍 Recherche'}</small>
-                        ${location.image ? `<div style="margin-top: 10px;"><img src="${location.image}" style="max-width: 200px; max-height: 150px; border-radius: 5px;"></div>` : ''}
-                    </div>`;
+                        `;
+                    } else {
+                        popupContent += `
+                            <div style="margin-bottom: 10px;">
+                                <h6 style="margin: 0 0 5px 0; font-size: 14px;">${location.name}</h6>
+                                <p style="margin: 0; font-size: 13px; color: #666;">${location.description}</p>
+                                ${location.image ? `<div style="margin-top: 8px;"><img src="${location.image}" style="max-width: 100%; max-height: 120px; border-radius: 5px; border: 1px solid #ddd;"></div>` : ''}
+                            </div>
+                        `;
+                    }
+                });
+                
+                popupContent += `</div>`;
 
-                const marker = L.marker([location.lat, location.lng], { icon: customIcon })
+                const marker = L.marker([group.lat, group.lng], { icon: customIcon })
                     .addTo(map)
                     .bindPopup(popupContent);
 
                 markers.push({
                     marker: marker,
-                    type: location.type,
-                    name: location.name
+                    type: group.type,
+                    name: group.locations[0].name // Utiliser le premier nom pour la recherche
                 });
             });
 
@@ -1789,6 +1829,9 @@
                 });
             });
         }
+
+        // Initialiser la carte une fois le DOM chargé
+        document.addEventListener('DOMContentLoaded', initMap);
 
         // Initialiser la carte une fois le DOM chargé
         document.addEventListener('DOMContentLoaded', initMap);

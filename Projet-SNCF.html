@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colin Charpentier</title>
 
     <!-- Bootstrap CSS -->
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-        rel="stylesheet" 
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-        crossorigin="anonymous"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Police Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -459,7 +456,7 @@
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .partner-logo {
                 max-width: 150px;
             }
@@ -474,41 +471,43 @@
             .bg-section {
                 padding: 1.5rem;
             }
-            
+
             .project-header h1 {
                 font-size: 2rem;
             }
-            
+
             .section-title {
                 font-size: 1.75rem;
             }
-            
+
             .partner-logo {
                 max-width: 120px;
             }
-            
+
         }
     </style>
 </head>
+
 <body class="bg-dark">
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="Portfolio.html">Colin Charpentier</a>
+            <a class="navbar-brand" href="index.html">Colin Charpentier</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                    aria-controls="navbar" aria-expanded="false" aria-label="Afficher le menu">
+                aria-controls="navbar" aria-expanded="false" aria-label="Afficher le menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#about">À propos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#projects">Projets</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#skills">Compétences</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#cartotheque">Cartothèque</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#map-section">Parcours</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Portfolio.html#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#projects">Projets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#stages">Stages</a></li> <!-- AJOUTÉ -->
+                    <li class="nav-item"><a class="nav-link" href="index.html#cartotheque">Cartothèque</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#map-section">Parcours</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -521,10 +520,11 @@
                 <div class="col-lg-8">
                     <h1 class="display-4 fw-bold">Quel cadre de vie en 2050 en Bretagne ?</h1>
                     <p class="lead">
-                        Création d'un indicateur prospectif de cadre de vie des actifs à l'horizon 2050 en Région Bretagne et en Loire Atlantique.
+                        Création d'un indicateur prospectif de cadre de vie des actifs à l'horizon 2050 en Région
+                        Bretagne et en Loire Atlantique.
                     </p>
                     <div class="d-flex flex-wrap">
-                        <a href="Portfolio.html#projects" class="btn btn-outline-primary btn-lg">
+                        <a href="index.html#projects" class="btn btn-outline-primary btn-lg">
                             <i class="fas fa-arrow-left me-2"></i>Retour aux projets
                         </a>
                     </div>
@@ -541,66 +541,74 @@
                     <!-- Section partenaire CORRIGÉE -->
                     <div class="partner-section fade-in">
                         <h3 class="mb-4">Projet réalisé en partenariat avec</h3>
-                        
+
                         <!-- Logo avec options d'affichage -->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/SNCF_R%C3%A9seau.png?20151231195739" 
-                             alt="Logo SNCF Réseau" 
-                             class="partner-logo no-bg"
-                             id="partnerLogo">
-                        
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/SNCF_R%C3%A9seau.png?20151231195739"
+                            alt="Logo SNCF Réseau" class="partner-logo no-bg" id="partnerLogo">
+
                         <div class="partner-name">SNCF Réseau</div>
                         <div class="partner-role">Gestionnaire de l’infrastructure ferroviaire française</div>
-                        
+
                         <!-- Options pour adapter l'affichage du logo -->
                         <div class="logo-options">
-                                                    </div>
+                        </div>
                     </div>
 
                     <!-- Image principale du projet -->
-                    
-                        
-                        <h2 class="section-title">Description du Projet</h2>
-                        <p>
-                            Ce projet réalisé avec l'ensemble de ma promotion est en cours de réalisation avec SNCF réseau dans le cadre de mon Master SIGAT. L'objectif est de développer un indicateur relatif au cadre de vie des actifs en 2050. Le cadre de vie est une notion très floue, chacun a sa propre définition du terme, c'est l'une des grandes difficultés de ce projet.
-                        </p>
-                        
-                        <h3 class="mt-4">Contexte et Enjeux</h3>
-                        <p>
-SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport ferroviaire sur le territoire. L'aménagement de ces nouvelles infrastructures ferroviaires prend du temps, et les besoins des citoyens peuvent connaître des changements une fois ces constructions réalisés, d'où un enjeu de prédiction des besoins futurs.                         </p>
-                        
-                        <h3 class="mt-4">Méthodologie</h3>
-                        <p>
-                            Le projet se déroule en plusieurs phases :
-                        </p>
-                        <ul>
-                            <li>Définition du cadre de vie et cadrage de la population active en 2050</li>
-                            <li>Création et diffusion d'un questionnaire à destination des futures actifs (les jeunes d'aujourd'hui)</li>
-                            <li>Recherche de données prospectives et analyse des resultats de l'enquête</li>
-                            <li>Analyse multifactorielle et reclassification cartographique en fonction des résultats de l'enquête</li>
-                        </ul>
-                        
-                        <h3 class="mt-4">Résultats Obtenus</h3>
-                        <p>
-                            Le projet étant toujours en cours aujourd'hui, nous ne connaissons pas encore les résultats.
-                        </p>
-                    </div>
-                    
-                    <!-- Galerie d'images -->
-                    <div class="bg-section fade-in">
-                        <h2 class="section-title">Galerie du Projet (bientôt !)</h2>
-                        <div class="gallery-grid">
-                            <div class="gallery-item">
-                                <img src="https://via.placeholder.com/400x300/6c63ff/ffffff?text=Carte+1" alt="No data" data-enlargable>
-                                <div class="gallery-caption">
-                                    <h5>Cartographie des risques</h5>
-                                    <p>Visualisation des zones à haut risque d'inondation</p>
-                                    <p> Le projet n'est pas terminé, revenez plus tard pour voir les cartes !</p>                                </div>
-                                </div>
+
+
+                    <h2 class="section-title">Description du Projet</h2>
+                    <p>
+                        Ce projet réalisé avec l'ensemble de ma promotion est en cours de réalisation avec SNCF réseau
+                        dans le cadre de mon Master SIGAT. L'objectif est de développer un indicateur relatif au cadre
+                        de vie des actifs en 2050. Le cadre de vie est une notion très floue, chacun a sa propre
+                        définition du terme, c'est l'une des grandes difficultés de ce projet.
+                    </p>
+
+                    <h3 class="mt-4">Contexte et Enjeux</h3>
+                    <p>
+                        SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport ferroviaire sur le
+                        territoire. L'aménagement de ces nouvelles infrastructures ferroviaires prend du temps, et les
+                        besoins des citoyens peuvent connaître des changements une fois ces constructions réalisés, d'où
+                        un enjeu de prédiction des besoins futurs. </p>
+
+                    <h3 class="mt-4">Méthodologie</h3>
+                    <p>
+                        Le projet se déroule en plusieurs phases :
+                    </p>
+                    <ul>
+                        <li>Définition du cadre de vie et cadrage de la population active en 2050</li>
+                        <li>Création et diffusion d'un questionnaire à destination des futures actifs (les jeunes
+                            d'aujourd'hui)</li>
+                        <li>Recherche de données prospectives et analyse des resultats de l'enquête</li>
+                        <li>Analyse multifactorielle et reclassification cartographique en fonction des résultats de
+                            l'enquête</li>
+                    </ul>
+
+                    <h3 class="mt-4">Résultats Obtenus</h3>
+                    <p>
+                        Le projet étant toujours en cours aujourd'hui, nous ne connaissons pas encore les résultats.
+                    </p>
+                </div>
+
+                <!-- Galerie d'images -->
+                <div class="bg-section fade-in">
+                    <h2 class="section-title">Galerie du Projet (bientôt !)</h2>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://via.placeholder.com/400x300/6c63ff/ffffff?text=Carte+1" alt="No data"
+                                data-enlargable>
+                            <div class="gallery-caption">
+                                <h5>Cartographie des risques</h5>
+                                <p>Visualisation des zones à haut risque d'inondation</p>
+                                <p> Le projet n'est pas terminé, revenez plus tard pour voir les cartes !</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </section>
 
@@ -621,35 +629,33 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
     </div>
 
     <!-- Bootstrap JS -->
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 
     <!-- Script principal -->
     <script>
         // Année automatique dans le footer
         document.getElementById("year").textContent = new Date().getFullYear();
-        
+
         // Animation au défilement
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeInOnScroll = function() {
+
+            const fadeInOnScroll = function () {
                 fadeElements.forEach(element => {
                     const elementTop = element.getBoundingClientRect().top;
                     const elementVisible = 150;
-                    
+
                     if (elementTop < window.innerHeight - elementVisible) {
                         element.classList.add('visible');
                     }
                 });
             };
-            
+
             // Vérifier au chargement
             fadeInOnScroll();
-            
+
             // Vérifier au défilement
             window.addEventListener('scroll', fadeInOnScroll);
         });
@@ -658,10 +664,10 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
+
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
@@ -673,12 +679,12 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
         });
 
         // Gestion de la galerie d'images et zoom
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const modal = document.querySelector('.image-modal');
             const modalImg = modal.querySelector('.modal-content');
             const closeModal = modal.querySelector('.close-modal');
             const images = document.querySelectorAll('[data-enlargable]');
-            
+
             // Fonction pour ouvrir l'image en plein écran
             function openModal(imgSrc, imgAlt) {
                 modalImg.src = imgSrc;
@@ -686,30 +692,30 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
-            
+
             // Fonction pour fermer le modal
             function closeModalFunc() {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
-            
+
             // Événements pour toutes les images zoomables
             images.forEach(img => {
-                img.addEventListener('click', function() {
+                img.addEventListener('click', function () {
                     openModal(this.src, this.alt);
                 });
             });
-            
+
             // Événements pour fermer le modal
             closeModal.addEventListener('click', closeModalFunc);
-            modal.addEventListener('click', function(e) {
+            modal.addEventListener('click', function (e) {
                 if (e.target === modal) {
                     closeModalFunc();
                 }
             });
-            
+
             // Fermer avec la touche Échap
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     closeModalFunc();
                 }
@@ -717,17 +723,17 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
         });
 
         // Gestion des options d'affichage du logo
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const logo = document.getElementById('partnerLogo');
             const optionButtons = document.querySelectorAll('.logo-option-btn');
-            
+
             optionButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const option = this.getAttribute('data-option');
-                    
+
                     // Retirer toutes les classes d'options
                     logo.classList.remove('no-bg', 'white-bg', 'dark-bg');
-                    
+
                     // Ajouter la classe sélectionnée
                     if (option === 'no-bg') {
                         logo.classList.add('no-bg');
@@ -736,7 +742,7 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
                     } else if (option === 'dark-bg') {
                         logo.classList.add('dark-bg');
                     }
-                    
+
                     // Mettre à jour les boutons actifs
                     optionButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
@@ -746,4 +752,5 @@ SNCF Réseau a pour objectif aujourd'hui de développer l'offre de transport fer
     </script>
 
 </body>
+
 </html>

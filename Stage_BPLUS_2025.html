@@ -387,6 +387,275 @@
 .project-image:hover {
     transform: scale(1.03);
 }
+/* =========================================== */
+/* GALERIE D'IMAGES AVEC OVERLAY ET LIGHTBOX  */
+/* =========================================== */
+
+/* Conteneur pour l'effet overlay */
+.image-hover-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    height: 250px; /* Hauteur fixe pour uniformiser */
+    margin-bottom: 1.5rem;
+}
+
+/* Image dans le conteneur */
+.image-hover-container .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    cursor: zoom-in;
+}
+
+/* Overlay qui apparaît en bas */
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0; /* Caché par défaut */
+    background: linear-gradient(to top, 
+        rgba(18, 18, 18, 0.95) 0%, 
+        rgba(18, 18, 18, 0.8) 50%,
+        rgba(108, 99, 255, 0.1) 100%);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    transition: height 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 1.5rem 1.5rem;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+/* Contenu de l'overlay */
+.overlay-content {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease 0.1s; /* Délai pour l'apparition du texte */
+    width: 100%;
+}
+
+.overlay-content h5 {
+    color: var(--light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.overlay-content p {
+    color: var(--gray-light);
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Effet au survol */
+.image-hover-container:hover .image-overlay {
+    height: 60%; /* L'overlay couvre les 60% inférieurs */
+}
+
+.image-hover-container:hover .overlay-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.image-hover-container:hover .project-image {
+    transform: scale(1.05); /* Léger zoom */
+}
+
+/* Grille pour la galerie */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Lightbox pour images en grand */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox.show {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    animation: lightboxFadeIn 0.3s ease;
+}
+
+@keyframes lightboxFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto;
+    animation: lightboxContentFadeIn 0.3s ease 0.1s both;
+}
+
+@keyframes lightboxContentFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 70vh;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.show .lightbox-image {
+    opacity: 1;
+}
+
+.lightbox-caption {
+    background: rgba(30, 30, 30, 0.95);
+    color: var(--light);
+    padding: 1.5rem;
+    border-radius: 0 0 10px 10px;
+    margin-top: -5px;
+    border-top: 2px solid var(--primary);
+    backdrop-filter: blur(10px);
+}
+
+.lightbox-caption h4 {
+    color: var(--light);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.lightbox-caption p {
+    color: var(--gray-light);
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -60px;
+    right: 0;
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    z-index: 10000;
+}
+
+.lightbox-close:hover {
+    color: var(--primary);
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+/* Responsive pour la galerie */
+@media (max-width: 768px) {
+    .image-hover-container {
+        height: 200px;
+    }
+    
+    .image-hover-container:hover .image-overlay {
+        height: 70%; /* Plus grand sur mobile */
+    }
+    
+    .overlay-content {
+        padding-bottom: 0.5rem;
+    }
+    
+    .overlay-content h5 {
+        font-size: 1rem;
+    }
+    
+    .overlay-content p {
+        font-size: 0.8rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 85vh;
+    }
+    
+    .lightbox-image {
+        max-height: 60vh;
+    }
+    
+    .lightbox-caption {
+        padding: 1rem;
+    }
+    
+    .lightbox-caption h4 {
+        font-size: 1.1rem;
+    }
+    
+    .lightbox-caption p {
+        font-size: 0.9rem;
+    }
+    
+    .lightbox-close {
+        top: -50px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-hover-container {
+        height: 180px;
+    }
+    
+    .image-overlay {
+        padding: 0 1rem 1rem;
+    }
+}
     </style>
 </head>
 <body class="bg-dark">
@@ -539,58 +808,123 @@
 <div class="bg-section fade-in">
     <h2 class="section-title">Galerie du Stage</h2>
     
-    <!-- Image 1 -->
-    <div class="mb-4">
-        <img src="https://media.licdn.com/dms/image/v2/D4E22AQGPRgQDmxm9Ow/feedshare-shrink_2048_1536/B4EZhgX80lGcAo-/0/1753963549781?e=1765411200&v=beta&t=3Zceej3CLzDaeOOBSjaGmCJY0BtYfywmW9UXlJ16tGA"
-             alt="Application ArcGIS Online - Visualisation du risque" 
-             class="project-image" 
-             data-enlargable>
-        <div class="text-center mt-2">
-            <p class="text-muted">Application ArcGIS Online - Visualisation du risque</p>
+    <!-- Conteneur pour les images en grille -->
+    <div class="row g-4">
+        <!-- Image 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGPRgQDmxm9Ow/feedshare-shrink_2048_1536/B4EZhgX80lGcAo-/0/1753963549781?e=1765411200&v=beta&t=3Zceej3CLzDaeOOBSjaGmCJY0BtYfywmW9UXlJ16tGA"
+                     alt="Application ArcGIS Online - Visualisation du risque" 
+                     class="project-image"
+                     data-fullsize="https://media.licdn.com/dms/image/v2/D4E22AQGPRgQDmxm9Ow/feedshare-shrink_2048_1536/B4EZhgX80lGcAo-/0/1753963549781?e=1765411200&v=beta&t=3Zceej3CLzDaeOOBSjaGmCJY0BtYfywmW9UXlJ16tGA"
+                     data-title="Visualisation du risque"
+                     data-description="Dashboard principal permettant de visualiser les zones à risque d'inondation et la population concernée">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Visualisation du risque</h5>
+                        <p>Dashboard principal permettant de visualiser les zones à risque d'inondation et la population concernée</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Application ArcGIS Online - Visualisation du risque</p>
+            </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQGNFKnWCcvThg/feedshare-shrink_2048_1536/B4EZhgX81mGwAo-/0/1753963550566?e=1765411200&v=beta&t=3a5gjkrMU4-SfyySVwlNvERni0ntu9An0vGtyttU8U4"
+                     alt="Application ArcGIS Online - Recensement des moyens" 
+                     class="project-image"
+                     data-fullsize="https://media.licdn.com/dms/image/v2/D4E22AQGNFKnWCcvThg/feedshare-shrink_2048_1536/B4EZhgX81mGwAo-/0/1753963550566?e=1765411200&v=beta&t=3a5gjkrMU4-SfyySVwlNvERni0ntu9An0vGtyttU8U4"
+                     data-title="Recensement des moyens"
+                     data-description="Interface de recensement des équipements et ressources disponibles pour la gestion de crise">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Recensement des moyens</h5>
+                        <p>Interface de recensement des équipements et ressources disponibles pour la gestion de crise</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Application ArcGIS Online - Recensement des moyens</p>
+            </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQE1O5O-iFntkQ/feedshare-shrink_2048_1536/B4EZhgX80gHgAs-/0/1753963549299?e=1765411200&v=beta&t=0QVFCeRXKkbbn8XaXbuWqjt5jFnoLbHq5rFo8A11878"
+                     alt="Application ArcGIS Online - Simulation de débordement" 
+                     class="project-image"
+                     data-fullsize="https://media.licdn.com/dms/image/v2/D4E22AQE1O5O-iFntkQ/feedshare-shrink_2048_1536/B4EZhgX80gHgAs-/0/1753963549299?e=1765411200&v=beta&t=0QVFCeRXKkbbn8XaXbuWqjt5jFnoLbHq5rFo8A11878"
+                     data-title="Simulation de débordement"
+                     data-description="Module de simulation montrant les impacts potentiels d'une crue centennale">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Simulation de débordement</h5>
+                        <p>Module de simulation montrant les impacts potentiels d'une crue centennale</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Application ArcGIS Online - Simulation de débordement</p>
+            </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQFsyuFCZlBvvQ/feedshare-shrink_2048_1536/B4EZhgX80xGoAo-/0/1753963549995?e=1765411200&v=beta&t=etERFEOGuXHvX5MZ4c3YzsOHKZHHfo9DkEtbbUmYnOo"
+                     alt="Dashboard interactif - Vue d'ensemble" 
+                     class="project-image"
+                     data-fullsize="https://media.licdn.com/dms/image/v2/D4E22AQFsyuFCZlBvvQ/feedshare-shrink_2048_1536/B4EZhgX80xGoAo-/0/1753963549995?e=1765411200&v=beta&t=etERFEOGuXHvX5MZ4c3YzsOHKZHHfo9DkEtbbUmYnOo"
+                     data-title="Dashboard interactif"
+                     data-description="Vue 3D d'une simulation de crue centennale sur l'aggloméation de Bourges">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Dashboard interactif</h5>
+                        <p>Vue 3D d'une simulation de crue centennale sur l'aggloméation de Bourges</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Dashboard interactif - Vue d'ensemble</p>
+            </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://media.licdn.com/dms/image/v2/D4E22AQHALX-whEUbBQ/feedshare-shrink_2048_1536/B4EZhgX80fHgAw-/0/1753963549180?e=1765411200&v=beta&t=Z3Lp71a9Kvhqmk1svaOBHj8itE-OV6WFl6mozoEvdBo"
+                     alt="Analyse de la population impactée" 
+                     class="project-image"
+                     data-fullsize="https://media.licdn.com/dms/image/v2/D4E22AQHALX-whEUbBQ/feedshare-shrink_2048_1536/B4EZhgX80fHgAw-/0/1753963549180?e=1765411200&v=beta&t=Z3Lp71a9Kvhqmk1svaOBHj8itE-OV6WFl6mozoEvdBo"
+                     data-title="Analyse démographique"
+                     data-description="Zoom sur l'impact potentiel à l'échelle des bâtiments">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Analyse démographique</h5>
+                        <p>Zoom sur l'impact potentiel à l'échelle des bâtiments</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Analyse de la population impactée par les inondations</p>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- Image 2 -->
-    <div class="mb-4">
-        <img src="https://media.licdn.com/dms/image/v2/D4E22AQGNFKnWCcvThg/feedshare-shrink_2048_1536/B4EZhgX81mGwAo-/0/1753963550566?e=1765411200&v=beta&t=3a5gjkrMU4-SfyySVwlNvERni0ntu9An0vGtyttU8U4"
-             alt="Application ArcGIS Online - Recensement des moyens" 
-             class="project-image" 
-             data-enlargable>
-        <div class="text-center mt-2">
-            <p class="text-muted">Application ArcGIS Online - Recensement des moyens</p>
-        </div>
-    </div>
-
-    <!-- Image 3 -->
-    <div class="mb-4">
-        <img src="https://media.licdn.com/dms/image/v2/D4E22AQE1O5O-iFntkQ/feedshare-shrink_2048_1536/B4EZhgX80gHgAs-/0/1753963549299?e=1765411200&v=beta&t=0QVFCeRXKkbbn8XaXbuWqjt5jFnoLbHq5rFo8A11878"
-             alt="Application ArcGIS Online - Simulation de débordement" 
-             class="project-image" 
-             data-enlargable>
-        <div class="text-center mt-2">
-            <p class="text-muted">Application ArcGIS Online - Simulation de débordement</p>
-        </div>
-    </div>
-
-    <!-- Image 4 -->
-    <div class="mb-4">
-        <img src="https://media.licdn.com/dms/image/v2/D4E22AQFsyuFCZlBvvQ/feedshare-shrink_2048_1536/B4EZhgX80xGoAo-/0/1753963549995?e=1765411200&v=beta&t=etERFEOGuXHvX5MZ4c3YzsOHKZHHfo9DkEtbbUmYnOo"
-             alt="Dashboard interactif - Vue d'ensemble" 
-             class="project-image" 
-             data-enlargable>
-        <div class="text-center mt-2">
-            <p class="text-muted">Dashboard interactif - Vue d'ensemble</p>
-        </div>
-    </div>
-
-    <!-- Image 5 -->
-    <div class="mb-4">
-        <img src="https://media.licdn.com/dms/image/v2/D4E22AQHALX-whEUbBQ/feedshare-shrink_2048_1536/B4EZhgX80fHgAw-/0/1753963549180?e=1765411200&v=beta&t=Z3Lp71a9Kvhqmk1svaOBHj8itE-OV6WFl6mozoEvdBo"
-             alt="Analyse de la population impactée" 
-             class="project-image" 
-             data-enlargable>
-        <div class="text-center mt-2">
-            <p class="text-muted">Analyse de la population impactée par les inondations</p>
+<!-- Lightbox pour afficher les images en grand -->
+<div id="imageLightbox" class="lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-image" src="" alt="">
+        <div class="lightbox-caption">
+            <h4 id="lightbox-title"></h4>
+            <p id="lightbox-description"></p>
         </div>
     </div>
 </div>
@@ -656,6 +990,88 @@
                 }
             });
         });
+
+        // ============================================
+// LIGHTBOX POUR VOIR LES IMAGES EN GRAND
+// ============================================
+
+// Attendre que le DOM soit chargé
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer les éléments
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    
+    // Récupérer toutes les images de la galerie
+    const galleryImages = document.querySelectorAll('.project-image');
+    
+    // Fonction pour ouvrir la lightbox
+    function openLightbox(imageElement) {
+        // Récupérer les données de l'image cliquée
+        const fullsizeUrl = imageElement.getAttribute('data-fullsize') || imageElement.src;
+        const title = imageElement.getAttribute('data-title') || imageElement.alt;
+        const description = imageElement.getAttribute('data-description') || '';
+        
+        // Mettre à jour la lightbox
+        lightboxImg.src = fullsizeUrl;
+        lightboxImg.alt = title;
+        lightboxTitle.textContent = title;
+        lightboxDescription.textContent = description;
+        
+        // Afficher la lightbox
+        lightbox.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Bloquer le défilement
+    }
+    
+    // Fonction pour fermer la lightbox
+    function closeLightbox() {
+        lightbox.classList.remove('show');
+        document.body.style.overflow = 'auto'; // Rétablir le défilement
+    }
+    
+    // Ajouter l'événement click à chaque image
+    galleryImages.forEach(image => {
+        image.addEventListener('click', function(event) {
+            event.preventDefault();
+            openLightbox(this);
+        });
+        
+        // Optionnel: Ajouter un effet de curseur
+        image.style.cursor = 'zoom-in';
+    });
+    
+    // Fermer au clic sur la croix
+    lightboxClose.addEventListener('click', function(event) {
+        event.stopPropagation();
+        closeLightbox();
+    });
+    
+    // Fermer au clic en dehors de l'image
+    lightbox.addEventListener('click', function(event) {
+        if (event.target === lightbox || event.target.classList.contains('lightbox')) {
+            closeLightbox();
+        }
+    });
+    
+    // Fermer avec la touche Échap
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('show')) {
+            closeLightbox();
+        }
+    });
+    
+    // Gestion du chargement des images
+    lightboxImg.addEventListener('load', function() {
+        this.style.opacity = '1';
+    });
+    
+    // En cas d'erreur de chargement
+    lightboxImg.addEventListener('error', function() {
+        console.error('Erreur de chargement de l\'image:', this.src);
+    });
+});
     </script>
 
 </body>

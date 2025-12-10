@@ -369,6 +369,275 @@
                 max-width: 120px;
             }
         }
+        /* =========================================== */
+/* GALERIE D'IMAGES AVEC OVERLAY ET LIGHTBOX  */
+/* =========================================== */
+
+/* Conteneur pour l'effet overlay */
+.image-hover-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    height: 250px; /* Hauteur fixe pour uniformiser */
+    margin-bottom: 1.5rem;
+}
+
+/* Image dans le conteneur */
+.image-hover-container .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    cursor: zoom-in;
+}
+
+/* Overlay qui apparaît en bas */
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0; /* Caché par défaut */
+    background: linear-gradient(to top, 
+        rgba(18, 18, 18, 0.95) 0%, 
+        rgba(18, 18, 18, 0.8) 50%,
+        rgba(108, 99, 255, 0.1) 100%);
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    transition: height 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 1.5rem 1.5rem;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+/* Contenu de l'overlay */
+.overlay-content {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease 0.1s; /* Délai pour l'apparition du texte */
+    width: 100%;
+}
+
+.overlay-content h5 {
+    color: var(--light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.overlay-content p {
+    color: var(--gray-light);
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Effet au survol */
+.image-hover-container:hover .image-overlay {
+    height: 60%; /* L'overlay couvre les 60% inférieurs */
+}
+
+.image-hover-container:hover .overlay-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.image-hover-container:hover .project-image {
+    transform: scale(1.05); /* Léger zoom */
+}
+
+/* Grille pour la galerie */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Lightbox pour images en grand */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.lightbox.show {
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    animation: lightboxFadeIn 0.3s ease;
+}
+
+@keyframes lightboxFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto;
+    animation: lightboxContentFadeIn 0.3s ease 0.1s both;
+}
+
+@keyframes lightboxContentFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 70vh;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.show .lightbox-image {
+    opacity: 1;
+}
+
+.lightbox-caption {
+    background: rgba(30, 30, 30, 0.95);
+    color: var(--light);
+    padding: 1.5rem;
+    border-radius: 0 0 10px 10px;
+    margin-top: -5px;
+    border-top: 2px solid var(--primary);
+    backdrop-filter: blur(10px);
+}
+
+.lightbox-caption h4 {
+    color: var(--light);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.lightbox-caption p {
+    color: var(--gray-light);
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -60px;
+    right: 0;
+    color: white;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    z-index: 10000;
+}
+
+.lightbox-close:hover {
+    color: var(--primary);
+    background: rgba(0, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+
+/* Responsive pour la galerie */
+@media (max-width: 768px) {
+    .image-hover-container {
+        height: 200px;
+    }
+    
+    .image-hover-container:hover .image-overlay {
+        height: 70%; /* Plus grand sur mobile */
+    }
+    
+    .overlay-content {
+        padding-bottom: 0.5rem;
+    }
+    
+    .overlay-content h5 {
+        font-size: 1rem;
+    }
+    
+    .overlay-content p {
+        font-size: 0.8rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 85vh;
+    }
+    
+    .lightbox-image {
+        max-height: 60vh;
+    }
+    
+    .lightbox-caption {
+        padding: 1rem;
+    }
+    
+    .lightbox-caption h4 {
+        font-size: 1.1rem;
+    }
+    
+    .lightbox-caption p {
+        font-size: 0.9rem;
+    }
+    
+    .lightbox-close {
+        top: -50px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-hover-container {
+        height: 180px;
+    }
+    
+    .image-overlay {
+        padding: 0 1rem 1rem;
+    }
+}
     </style>
 </head>
 
@@ -534,9 +803,216 @@
         </div>
     </section>
 
-    <div class="bg-section fade-in">
-        <h2 class="section-title">Rapport de Stage</h2>
+    <!-- Galerie d'images -->
+<div class="bg-section fade-in">
+    <h2 class="section-title">Galerie du Stage</h2>
+    
+    <!-- Conteneur pour les images en grille -->
+    <div class="row g-4">
+        <!-- Image 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Assistant%20d'assemblage%20LiDAR.jpg"
+                     alt="Cyclone Register sur tablette - Assemblage LiDAR primaire" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Assistant%20d'assemblage%20LiDAR.jpg"
+                     data-title="Arpentage - Constituion d'un Bundle LiDAR"
+                     data-description="Assemblage de deux prises LiDAR statiques sur le logiciel Cyclone Register 360 (version portable)">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Arpentage - Constituion d'un Bundle LiDAR</h5>
+                        <p>Assemblage de deux prises LiDAR statiques sur le logiciel Cyclone Register 360 (version portable)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Application ArcGIS Online - Visualisation du risque</p>
+            </div>
+        </div>
 
+        <!-- Image 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Balisage%20sous%20la%20neige.jpg"
+                     alt="Arpentage sous la neige, géoréférencement des données récoltées au drone" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Balisage%20sous%20la%20neige.jpg"
+                     data-title="Arpentage sous la neige, géoréférencement des données récoltées au drone"
+                     data-description="Malgré la neige et le froid, on trouve des solutions pour baliser les points de contrôle au sol">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Arpentage sous la neige, géoréférencement des données récoltées au drone</h5>
+                        <p>Malgré la neige et le froid, on trouve des solutions pour baliser les points de contrôle au sol</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Application ArcGIS Online - Recensement des moyens</p>
+            </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Bundle.jpg"
+                     alt="Arpentage - Rendu pour un scan d'étage complet" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Bundle.jpg"
+                     data-title="Arpentage - Rendu pour un scan d'étage complet"
+                     data-description="Rendu complet d'un scan d'étage réalisé avec le scanner laser Leica RTC 360">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Arpentage - Rendu pour un scan d'étage complet</h5>
+                        <p>Rendu complet d'un scan d'étage réalisé avec le scanner laser Leica RTC 360</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted"></p>
+            </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Combinaison%20arpentage.jpg"
+                     alt="Tenue d'arpentage" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Combinaison%20arpentage.jpg"
+                     data-title="Tenue d'arpentage"
+                     data-description="Tenue d'arpentage - Gilet orange de chantier et support pour la tablette numérique">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Tenue d'arpentage</h5>
+                        <p>Tenue d'arpentage - Gilet orange de chantier et support pour la tablette numérique</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Tenue d'arpentage - Gilet orange de chantier et support pour la tablette numérique</p>
+            </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Drone.jpg"
+                     alt="Drone - Prise de vue aérienne pour les relevés de toitures" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Drone.jpg"
+                     data-title="Drone - DJI Phantom"
+                     data-description="Drone - Prise de vue aérienne pour les relevés de toitures">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Drone - DJI Phantom</h5>
+                        <p>Drone - Prise de vue aérienne pour les relevés de toitures</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Drone - Prise de vue aérienne pour les relevés de toitures</p>
+            </div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Escaliers%20mal%20assembl%C3%A9s.jpg"
+                     alt="Assemblage LiDAR - Le piège de la cage d'escaliers" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Escaliers%20mal%20assembl%C3%A9s.jpg"
+                     data-title="Assemblage LiDAR - Le piège de la cage d'escaliers"
+                     data-description="A chaque étage, la cage d'escaliers a la même forme, le logiciel a donc du mal à discerner quel relevé est à quel étage">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Assemblage LiDAR - Le piège de la cage d'escaliers</h5>
+                        <p>A chaque étage, la cage d'escaliers a la même forme, le logiciel a donc du mal à discerner quel relevé est à quel étage</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Drone - Prise de vue aérienne pour les relevés de toitures</p>
+            </div>
+        </div>
+
+        <!-- Image 7 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Ground%20Control%20Point.jpg"
+                     alt="Assemblage LiDAR - Les Ground Control Points" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Ground%20Control%20Point.jpg"
+                     data-title="Assemblage LiDAR - Les Ground Control Points"
+                     data-description="Pour que le relevé soit précis, il est indispensable de géoréférencer le nuage de points à l'aide de balises">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Assemblage LiDAR - Les Ground Control Points</h5>
+                        <p>Pour que le relevé soit précis, il est indispensable de géoréférencer le nuage de points à l'aide de balises</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Assemblage LiDAR - Les Ground Control Points</p>
+            </div>
+        </div>
+
+        <!-- Image 8 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Scan%20d'%C3%A9cole%20la%20nuit.jpg"
+                     alt="Assemblage LiDAR - Scans nocturnes" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Scan%20d'%C3%A9cole%20la%20nuit.jpg"
+                     data-title="Assemblage LiDAR - Scans nocturnes"
+                     data-description="Pour éviter que les élèves passent devant le scanner laser, les relevés ont été faits la nuit">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Assemblage LiDAR - Scans nocturnes</h5>
+                        <p>Pour éviter que les élèves passent devant le scanner laser, les relevés ont été faits la nuit</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Assemblage LiDAR - Scans nocturnes</p>
+            </div>
+        </div>
+
+        <!-- Image 9 -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="image-hover-container">
+                <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Vue%203D%20Lidar%24.jpg"
+                     alt="Cyclone Register 360 - Logiciel d'assemblage LiDAR" 
+                     class="project-image"
+                     data-fullsize="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Vue%203D%20Lidar%24.jpg"
+                     data-title="Cyclone Register 360 - Logiciel d'assemblage LiDAR"
+                     data-description="La visualisation 3D des données récoltées permet de vérifier si l'assemblage est bien effectué">
+                <div class="image-overlay">
+                    <div class="overlay-content">
+                        <h5>Cyclone Register 360 - Logiciel d'assemblage LiDAR</h5>
+                        <p>La visualisation 3D des données récoltées permet de vérifier si l'assemblage est bien effectué</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <p class="text-muted">Cyclone Register 360 - Logiciel d'assemblage LiDAR</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox pour afficher les images en grand -->
+<div id="imageLightbox" class="lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-image" src="" alt="">
+        <div class="lightbox-caption">
+            <h4 id="lightbox-title"></h4>
+            <p id="lightbox-description"></p>
+        </div>
+    </div>
+</div>
+
+    <div class="bg-section fade-in">
         <h2 class="section-title">Rapport de Stage</h2>
 
         <!-- Bouton de téléchargement juste après le titre -->
@@ -607,6 +1083,87 @@
                     }
                 });
             });
+            // ============================================
+// LIGHTBOX POUR VOIR LES IMAGES EN GRAND
+// ============================================
+
+// Attendre que le DOM soit chargé
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer les éléments
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    
+    // Récupérer toutes les images de la galerie
+    const galleryImages = document.querySelectorAll('.project-image');
+    
+    // Fonction pour ouvrir la lightbox
+    function openLightbox(imageElement) {
+        // Récupérer les données de l'image cliquée
+        const fullsizeUrl = imageElement.getAttribute('data-fullsize') || imageElement.src;
+        const title = imageElement.getAttribute('data-title') || imageElement.alt;
+        const description = imageElement.getAttribute('data-description') || '';
+        
+        // Mettre à jour la lightbox
+        lightboxImg.src = fullsizeUrl;
+        lightboxImg.alt = title;
+        lightboxTitle.textContent = title;
+        lightboxDescription.textContent = description;
+        
+        // Afficher la lightbox
+        lightbox.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Bloquer le défilement
+    }
+    
+    // Fonction pour fermer la lightbox
+    function closeLightbox() {
+        lightbox.classList.remove('show');
+        document.body.style.overflow = 'auto'; // Rétablir le défilement
+    }
+    
+    // Ajouter l'événement click à chaque image
+    galleryImages.forEach(image => {
+        image.addEventListener('click', function(event) {
+            event.preventDefault();
+            openLightbox(this);
+        });
+        
+        // Optionnel: Ajouter un effet de curseur
+        image.style.cursor = 'zoom-in';
+    });
+    
+    // Fermer au clic sur la croix
+    lightboxClose.addEventListener('click', function(event) {
+        event.stopPropagation();
+        closeLightbox();
+    });
+    
+    // Fermer au clic en dehors de l'image
+    lightbox.addEventListener('click', function(event) {
+        if (event.target === lightbox || event.target.classList.contains('lightbox')) {
+            closeLightbox();
+        }
+    });
+    
+    // Fermer avec la touche Échap
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && lightbox.classList.contains('show')) {
+            closeLightbox();
+        }
+    });
+    
+    // Gestion du chargement des images
+    lightboxImg.addEventListener('load', function() {
+        this.style.opacity = '1';
+    });
+    
+    // En cas d'erreur de chargement
+    lightboxImg.addEventListener('error', function() {
+        console.error('Erreur de chargement de l\'image:', this.src);
+    });
+});
         </script>
 
 </body>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Maplibre</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <html>
+<head>
+<meta charset='utf-8' />
+<title>Maplibre</title>
+<script src="https://unpkg.com/maplibre-gl@^5.16.0/dist/maplibre-gl.js"></script>
+  
+<link href="https://unpkg.com/maplibre-gl@^5.16.0/dist/maplibre-gl.css" rel="stylesheet" />
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> 
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  
+<script src="https://unpkg.com/pmtiles@3.0.6/dist/pmtiles.js"></script>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+
+</head>
+<body>
+<div id='map'></div>
+<div id='ongletsgeo'>
+  
+  <div class="btn-group-sm" role="group" aria-label="Small button group">
+    
+  <button type="button" id="Rennes" class="btn btn-outline-primary">Vue départ</button>
+  <button type="button" id="Gare" class="btn btn-outline-primary">Gare SNCF</button>
+  <button type="button" id="Rennes1" class="btn btn-outline-primary">Université Rennes 1</button>
+  <button type="button" id="Rennes2" class="btn btn-outline-primary">Université Rennes 2</button>
+</div>
+  </div>
+
+<div class='menu'>
+    <div class='menu_overlay'>
+
+<hr>
+   <fieldset>
+   <label class="categoryLabel">Données de mobilité</label>
+   
+     <div>
+      <input type="checkbox" id="lignesmetrosCB" value="lignesmetros" onchange="switchlayer('lignesmetros')" checked/>
+                <label for="lignesmetrosCB">Lignes de métro</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="parcrelaisCB" value="parcrelais" onchange="switchlayer('parcrelais')" checked/>
+                <label for="parcrelaisCB">Parcs relais</label>
+            </div>
+     <div>
+                <input type="checkbox" id="velostarCB" value="velostar" onchange="switchlayer('velostar')" />
+                <label for="velostarCB">Stations VLS</label>
+            </div>
+        </fieldset>
+      
+      <hr>
+      
+        <fieldset>
+            <label class="categoryLabel">Données d'urbanisme</label>
+            <div>
+                <input type="checkbox" id="PLU_RM_fillCB" value="PLU_RM_fill" onchange="switchlayer('PLU_RM_fill')" />
+                <label for="PLU_RM_fillCB">PLUI</label>
+            </div>
+            <div>             
+                <input type="checkbox" id="CadastreCB" value="Cadastre" onchange="switchlayer('Cadastre')" />
+                <label for="CadastreCB">Parcelles cadastrales</label>
+            </div>
+        </fieldset>
+        <hr>
+        <fieldset>
+            <label class="categoryLabel">Autres</label>
+                <input type="checkbox" id="vegetationCB" value="vegetation" onchange="switchlayer('vegetation')" />
+                <label for="vegetationCB">Zones de végétation</label>
+            </div>
+        </fieldset>
+    
+</div>
+
+</div>
+
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>

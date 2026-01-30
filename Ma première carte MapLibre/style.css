@@ -1,0 +1,68 @@
+#map {position:absolute; top:0; bottom:0; width:100%;}
+
+
+/*Popup hover sur parcs relais*/
+.Mypopup.dark-theme .maplibregl-popup-content {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border: 1px solid #2d3748;
+}
+
+.Mypopup .maplibregl-popup-content {
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border-radius: 6px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: sans-serif;
+  font-size: 14px;
+  max-width: 250px;
+}
+
+/* Style pour les popups de vélostar */
+.Mypopup.velostar .maplibregl-popup-content {
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  border-radius: 6px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: sans-serif;
+  font-size: 14px;
+  max-width: 250px;
+}
+
+/* style du menu */
+.menu {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            position: absolute;
+            width: 200px;
+            top: 50;
+            left: 50px;
+            padding: 10px;
+        }
+
+.menu .menu_overlay {
+            background-color: #fff;
+            box-shadow:0 1px 2px rgba(0, 0, 0, 0.10);
+            border-radius: 3px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+.menu_overlay fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 10px;
+        }
+
+.menu_overlay .categoryLabel {
+            display: block;
+            font-weight: bold;
+            margin: 0 0 5px;
+        }
+
+#ongletsgeo {position: absolute; 
+             top: 10px; 
+             right: 50px; 
+             z-index: 1;
+             width:463px;
+             background-color: #ffffff;

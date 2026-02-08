@@ -3,6 +3,7 @@
 "name": "COLIN_PARKINGS_SIPA",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
+{ "type": "Feature", "properties": { "id": null, "POSITION": "Parking à vélo" }, "geometry": { "type": "Point", "coordinates": [ -1.628326817450231, 48.094006658429734 ] } },
 { "type": "Feature", "properties": { "id": 1, "POSITION": "Parking Ouest" }, "geometry": { "type": "Point", "coordinates": [ -1.629382172454338, 48.092788593045839 ] } },
 { "type": "Feature", "properties": { "id": 2, "POSITION": "Parking Est" }, "geometry": { "type": "Point", "coordinates": [ -1.627974821882805, 48.094615878868552 ] } },
 { "type": "Feature", "properties": { "id": 3, "POSITION": "Parking Nord" }, "geometry": { "type": "Point", "coordinates": [ -1.629251652038429, 48.095281249249659 ] } }

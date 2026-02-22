@@ -1065,6 +1065,27 @@
                     </div>
                 </div>
 
+                <!-- Projet Ouest France -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm fade-in">
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-3">
+                                <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Webmapping Ouest-France</h5>
+                            <p class="card-text flex-grow-1">
+                                Prototype d'application cartographique de repérage du Campus SIPA de Chantepie.
+                            </p>
+                            <div class="mt-auto">
+                                <span class="badge bg-primary mb-2">Webmapping</span>
+                                <span class="badge bg-primary mb-2">JavaScript</span>
+                                <span class="badge bg-primary mb-2">Programmation</span>
+                                <a href="Projet-Ouest-France.html" class="btn btn-sm btn-primary mt-2">A venir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
 
             </div>
@@ -1438,6 +1459,10 @@
                                 <h6 class="mb-1">H4GEO - Montréal</h6>
                                 <small class="text-muted">Arpentage et modélisation BIM</small>
                             </div>
+                             <div class="location-item internship-item mb-3 p-3 rounded bg-dark">
+                                <h6 class="mb-1">EGIS Groupe - Lyon</h6>
+                                <small class="text-muted">Stage de fin d'études</small>
+                            </div>
                         </div>
                     </div>
 
@@ -1588,7 +1613,7 @@
                 type: "education",
                 lat: 48.12060,
                 lng: -1.70360,
-                description: "Master SIGAT - 2023-2026",
+                description: "Master Géomatique Système d'Information Géographique & Analyse des Territoires (SIGAT) - 2023-2026",
                 icon: "education",
                 logo: "https://upload.wikimedia.org/wikipedia/fr/thumb/2/23/Logo_univ-rennes2-2016.svg/1180px-Logo_univ-rennes2-2016.svg.png"
             },
@@ -1597,7 +1622,7 @@
                 type: "education",
                 lat: 47.09731,
                 lng: 2.41794,
-                description: "BUT Carrières Sociales, Villes & Territoires Durables - 2021-2024",
+                description: "BUT Carrières Sociales, Villes & Territoires Durables (CS VTD) - 2021-2024",
                 icon: "education",
                 logo: "https://yt3.googleusercontent.com/ytc/AIdro_mEkRms5WMpBcSknExLRfOo_0kO4AOslbbWHmd0zSXIJw=s900-c-k-c0x00ffffff-no-rj"
             },
@@ -1627,6 +1652,15 @@
                 description: "Réalisation d'une Carte 3D Web sur le NPNRU - 2023",
                 icon: "internship",
                 logo: "https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
+            },
+            {
+                name: "EGIS Groupe - Lyon",
+                type: "internship",
+                lat: 45.76767746507908,
+                lng:  4.8612819228820205,
+                description: "Stage de fin d'étude (prochainement) - 2026",
+                icon: "internship",
+                logo: "https://upload.wikimedia.org/wikipedia/fr/5/5b/Logo-egis.gif"
             },
         ];
 
@@ -1721,6 +1755,15 @@
                 description: "Croisement des ventes de biens immobiliers et taux de vacances des logements en Bretagne.",
                 icon: "map",
                 image: "https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Carte.png"
+            },
+            {
+                name: "Analyse de visibilité : Où voir la cathédrale de Bourges ?",
+                type: "map",
+                lat: 47.0822,
+                lng: 2.39911,
+                description: "Analyse de visiblité avec le plugin Visibility Analysis",
+                icon: "map",
+                image: "https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/Ou%20voir%20la%20cathédrale%20de%20Bourges.png"
             }
         ];
 
@@ -1761,9 +1804,6 @@
                 }),
                 "Satellite": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                     attribution: 'Tiles &copy; Esri'
-                }),
-                "IGN": L.tileLayer('https://wxs.ign.fr/choisirgeoportail/geoportail/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}', {
-                    attribution: '© IGN'
                 })
             };
 

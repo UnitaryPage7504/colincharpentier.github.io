@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colin Charpentier</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Police Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS personnalisé -->
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #5a52d5;
+            --secondary: #ff6584;
+            --dark: #121212;
+            --dark-light: #1e1e1e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #adb5bd;
+            --map-color: #4CAF50;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Image de fond fixe avec superposition sombre */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1550684376-efcbd6e3f031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: -2;
+            opacity: 0.15;
+        }
+
+        /* Couche sombre supplémentaire pour améliorer la lisibilité */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(30, 30, 30, 0.9) 100%);
+            z-index: -1;
+        }
+
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            color: var(--light) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--gray-light) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+            position: relative;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: clamp(3rem, 8vw, 5rem) 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+            position: relative;
+            display: inline-block;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .project-header {
+            padding: clamp(6rem, 15vw, 8rem) 0 clamp(3rem, 8vw, 5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header h1 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        .project-header p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+        }
+
+        .bg-section {
+            background-color: rgba(30, 30, 30, 0.85);
+            border-radius: 15px;
+            padding: clamp(1.5rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bg-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+            max-width: 100%;
+            height: auto;
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        .project-image:hover {
+            transform: scale(1.03);
+        }
+
+        .btn {
+            border-radius: 30px;
+            padding: 0.75rem clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Animation pour les sections */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Galerie d'images */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Section partenaire */
+        .partner-section {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .partner-logo {
+            max-width: 200px;
+            max-height: 100px;
+            object-fit: contain;
+            margin: 1rem auto;
+            transition: transform 0.3s ease;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .partner-logo.no-bg {
+            background: none;
+            padding: 0;
+        }
+
+        .partner-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .partner-role {
+            color: var(--gray-light);
+            font-size: 1rem;
+        }
+
+        /* Badges de phase */
+        .phase-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Grille des profils usagers */
+        .user-profile-card {
+            background: rgba(108, 99, 255, 0.1);
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.25rem;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile-card:hover {
+            background: rgba(108, 99, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .user-profile-card h5 {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .user-profile-card ul {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            margin-bottom: 0;
+        }
+
+        /* Grille des outils */
+        .tool-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            margin: 0.3rem;
+        }
+
+        /* Modal pour l'affichage en plein écran */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .image-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Améliorations responsive */
+        .container {
+            max-width: 100%;
+            padding-left: clamp(1rem, 3vw, 2rem);
+            padding-right: clamp(1rem, 3vw, 2rem);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-collapse {
+                background-color: rgba(18, 18, 18, 0.95);
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partner-logo {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .bg-section {
+                padding: 1.5rem;
+            }
+
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Colin Charpentier</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-controls="navbar" aria-expanded="false" aria-label="Afficher le menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#projects">Projets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#skills">Compétences</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#stages">Stages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#cartotheque">Cartothèque</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#map-section">Parcours</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- EN-TÊTE DU PROJET -->
+    <header class="project-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Webmapping – Campus SIPA</h1>
+                    <p class="lead">
+                        Prototype d'application web interactive aidant les collaborateurs et visiteurs
+                        du Campus SIPA Ouest-France à se repérer sur leur lieu de travail.
+                    </p>
+                    <div class="d-flex flex-wrap">
+                        <a href="index.html#projects" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Retour aux projets
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL DU PROJET -->
+    <section id="project-content" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+
+                    <!-- Section partenaire -->
+                    <div class="partner-section fade-in">
+                        <h3 class="mb-4">Projet réalisé en partenariat avec</h3>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp-6ILnKesz4TmC4j1tjWvnRBQjHueGDogpA&s"
+                            alt="Logo Ouest-France" class="partner-logo" id="partnerLogo">
+                        <div class="partner-name">Groupe SIPA Ouest-France</div>
+                        <div class="partner-role">Premier groupe de presse hebdomadaire et deuxième groupe de quotidiens
+                            en France</div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Description du Projet</h2>
+                        <p>
+                            Ce projet a été réalisé dans le cadre de la validation du M2 SIGAT (Université Rennes 2),
+                            en collaboration avec le groupe SIPA Ouest-France. L'objectif était de concevoir et
+                            développer une application web cartographique interactive permettant aux collaborateurs
+                            et visiteurs du Campus SIPA de Chantepie (au sud de Rennes) de se repérer sur leur lieu
+                            de travail.
+                        </p>
+                        <p>
+                            Le livrable final s'articule autour de deux modes de navigation complémentaires :
+                            un <strong style="color: var(--primary);">mode Extérieur (Outdoor)</strong> offrant une
+                            vue 3D du campus avec navigation animée vers les quais de livraison, et un
+                            <strong style="color: var(--primary);">mode Intérieur (Indoor)</strong> permettant
+                            d'explorer étage par étage les bâtiments de la Tour et de la Galette.
+                        </p>
+                    </div>
+
+                    <!-- Contexte et Enjeux -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Contexte et Enjeux</h2>
+                        <p>
+                            Le Campus SIPA de Chantepie regroupe plusieurs bâtiments aux fonctions distinctes :
+                            la <strong>Tour</strong> (6 étages abritant IntraSipa, la Cybersécurité, la communication…),
+                            la <strong>Galette</strong> (rédaction, coordination pub, service informatique),
+                            une imprimerie, et divers autres espaces opérationnels fonctionnant 24h/24.
+                        </p>
+                        <p>
+                            À la suite d'une enquête qualitative interne sur les usages du site, des profils
+                            d'utilisateurs aux besoins variés ont été identifiés. Le Master SIGAT a été mandaté
+                            pour proposer une réponse numérique complémentaire à un projet de signalétique
+                            physique déjà en cours, afin d'aider chaque profil à se déplacer efficacement sur
+                            le campus.
+                        </p>
+
+                        <!-- Profils usagers -->
+                        <h3 class="mt-4 mb-3">Les profils d'usagers identifiés</h3>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <h5><i class="fas fa-user me-2"></i>Visiteurs & intervenants occasionnels</h5>
+                                    <ul class="mt-2">
+                                        <li>Accueil & sens de visite</li>
+                                        <li>Parkings</li>
+                                        <li>Entrées et sorties</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <h5><i class="fas fa-truck me-2"></i>Intervenants extérieurs réguliers</h5>
+                                    <ul class="mt-2">
+                                        <li>Quais de livraison</li>
+                                        <li>Salles spécifiques (sport, douches…)</li>
+                                        <li>Cheminements extérieurs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <h5><i class="fas fa-building me-2"></i>Collaborateurs à plein temps</h5>
+                                    <ul class="mt-2">
+                                        <li>Salles de réunion & de pause</li>
+                                        <li>Issues de secours</li>
+                                        <li>Points stratégiques & entrées</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Méthodologie -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Méthodologie</h2>
+                        <p>Le projet s'est déroulé sur 13 semaines (264 heures de travail collectif) en trois phases :</p>
+
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <span class="phase-badge">Phase 1 – Jan./Fév. 2026</span>
+                                    <h5 class="mt-2">Cadrage</h5>
+                                    <ul class="mt-1">
+                                        <li>Analyse du diagnostic interne</li>
+                                        <li>Étude des plans architecturaux</li>
+                                        <li>Cadrage des besoins usagers</li>
+                                        <li>Recherches techniques</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <span class="phase-badge">Phase 2 – Fév./Mars 2026</span>
+                                    <h5 class="mt-2">Prototypage</h5>
+                                    <ul class="mt-1">
+                                        <li>Recueil de données supplémentaires</li>
+                                        <li>Géoréférencement des plans PDF</li>
+                                        <li>Vectorisation manuelle des espaces intérieurs</li>
+                                        <li>Mise en place des premiers prototypes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="user-profile-card">
+                                    <span class="phase-badge">Phase 3 – Avr./Mai 2026</span>
+                                    <h5 class="mt-2">Perfectionnement</h5>
+                                    <ul class="mt-1">
+                                        <li>Améliorations graphiques</li>
+                                        <li>Correction de bugs</li>
+                                        <li>Finalisation et rédaction du rapport</li>
+                                        <li>Restitution publique (6 mai 2026)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Outils & données -->
+                        <h3 class="mt-4 mb-3">Outils & données mobilisés</h3>
+                        <div>
+                            <span class="tool-badge"><i class="fas fa-drafting-compass" style="color: var(--primary);"></i> ArcGIS Pro</span>
+                            <span class="tool-badge"><i class="fab fa-js" style="color: #f7df1e;"></i> MapLibre GL JS</span>
+                            <span class="tool-badge"><i class="fas fa-map" style="color: var(--primary);"></i> Turf.js</span>
+                            <span class="tool-badge"><i class="fab fa-html5" style="color: #e44d26;"></i> HTML / CSS / JS</span>
+                            <span class="tool-badge"><i class="fab fa-github"></i> GitHub</span>
+                            <span class="tool-badge"><i class="fas fa-code" style="color: var(--primary);"></i> CodePen.io</span>
+                            <span class="tool-badge"><i class="fas fa-layer-group" style="color: #4CAF50;"></i> GeoJSON</span>
+                            <span class="tool-badge"><i class="fas fa-map-marked-alt"></i> BD TOPO IGN</span>
+                            <span class="tool-badge"><i class="fas fa-satellite"></i> Ortho Rennes Métropole 2021</span>
+                        </div>
+                        <p class="mt-3" style="color: var(--gray-light); font-size: 0.9rem;">
+                            Les plans architecturaux (DWG/PDF) ont été géoréférencés dans ArcGIS Pro, puis les espaces
+                            intérieurs vectorisés manuellement sous forme de polygones et exportés en GeoJSON.
+                            Les pièces sont classées en 7 typologies : Service, Bureau, Pause, Accès, Toilettes,
+                            Atelier, Salle de réunion.
+                        </p>
+                    </div>
+
+                    <!-- Résultats -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Fonctionnalités du livrable</h2>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h4 style="color: var(--primary);"><i class="fas fa-sun me-2"></i>Mode Extérieur (Outdoor)</h4>
+                                <ul style="color: var(--gray-light);">
+                                    <li>Vue 3D du campus avec bâtiments, parkings, espaces verts et allées piétonnes</li>
+                                    <li>Navigation animée vers les quais de livraison (camion en temps réel)</li>
+                                    <li>Survol interactif : pop-ups sur bâtiments, portiques et parkings</li>
+                                    <li>Bascule entre fond neutre (BDCARTOPOSITRON) et vue satellite (Rennes Métropole 2021)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="color: var(--primary);"><i class="fas fa-building me-2"></i>Mode Intérieur (Indoor)</h4>
+                                <ul style="color: var(--gray-light);">
+                                    <li>Navigation étage par étage (rez-de-jardin au 6ème) via barre latérale ou flèches</li>
+                                    <li>Salles en 3D avec murs extrudés, colorées par usage (réunion, bureau, toilettes…)</li>
+                                    <li>Légende interactive : mise en surbrillance par catégorie</li>
+                                    <li>Clic sur une salle : fiche détaillée et épingle de localisation</li>
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <h4 style="color: var(--primary);"><i class="fas fa-star me-2"></i>Éléments communs</h4>
+                                <ul style="color: var(--gray-light);">
+                                    <li>Barre de recherche par nom ou type de salle, accessible dans les deux modes</li>
+                                    <li>En-tête fixe avec logo Ouest-France et panneau d'aide (?)</li>
+                                    <li>Zone de déplacement limitée à 500 m autour du campus</li>
+                                    <li>Sources : BD TOPO © IGN et données ouvertes de Rennes Métropole</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Limites & Perspectives -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Limites & Perspectives</h2>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h4 style="color: var(--secondary);"><i class="fas fa-exclamation-triangle me-2"></i>Limites actuelles</h4>
+                                <ul style="color: var(--gray-light);">
+                                    <li>Modélisation indoor limitée à la Tour et la Galette</li>
+                                    <li>Absence de navigation intérieure guidée (cheminements non créés)</li>
+                                    <li>Géolocalisation GPS impossible en intérieur (effet canyon)</li>
+                                    <li>Pratique du flex office : mises à jour régulières nécessaires</li>
+                                    <li>Quelques instabilités techniques (prototype)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="color: var(--primary);"><i class="fas fa-rocket me-2"></i>Perspectives d'amélioration</h4>
+                                <ul style="color: var(--gray-light);">
+                                    <li>Système d'authentification centralisé (différenciation des profils)</li>
+                                    <li>Design entièrement responsive (usage smartphone prioritaire)</li>
+                                    <li>Modélisation des bâtiments restants du campus</li>
+                                    <li>Intégration des cheminements intérieurs et des accès PMR</li>
+                                    <li>Ajout des issues de secours</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Galerie -->
+                    <div class="bg-section fade-in">
+                        <h2 class="section-title">Galerie du Projet</h2>
+                        <div class="gallery-grid">
+
+                            <!-- Image 1 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/Vue%20outdoor%203D.png?raw=true"
+                                    alt="Vue outdoor 3D du campus SIPA" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Vue Extérieure (Outdoor)</h5>
+                                    <p>Campus SIPA en 3D avec bâtiments, parkings et allées piétonnes</p>
+                                </div>
+                            </div>
+
+                            <!-- Image 2 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/Vue%20indoor%203D.png?raw=true"
+                                    alt="Vue indoor 3D des étages" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Vue Intérieure (Indoor)</h5>
+                                    <p>Navigation étage par étage avec salles extrudées en 3D</p>
+                                </div>
+                            </div>
+
+                            <!-- Image 3 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/Barre%20de%20recherche.png?raw=true"
+                                    alt="Barre de recherche de salles" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Recherche de salles</h5>
+                                    <p>Localisation instantanée par nom ou type de salle</p>
+                                </div>
+                            </div>
+
+                             <!-- Image 4 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/L%C3%A9gende.png?raw=true"
+                                    alt="Légende interactive par catégorie" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Légende interactive</h5>
+                                    <p>Menu de sélection de typologie de salle</p>
+                                </div>
+                            </div>
+
+                            <!-- Image 5 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/S%C3%A9lection%20par%20cat%C3%A9gorie.png?raw=true"
+                                    alt="Légende interactive par catégorie" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Catégorisation des salles</h5>
+                                    <p>Mise en surbrillance pulsée des salles par catégorie</p>
+                                </div>
+                            </div>
+
+                            <!-- Image 6 -->
+                            <div class="gallery-item">
+                                <img src="https://github.com/UnitaryPage7504/colincharpentier.github.io/blob/main/Images%20Portfolio/Vue%20Satellite.png?raw=true"
+                                    alt="Fond satellite Rennes Métropole" data-enlargable>
+                                <div class="gallery-caption">
+                                    <h5>Fond satellite</h5>
+                                    <p>Orthophotographie Rennes Métropole 2021 en mode extérieur</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-4">
+        <div class="container text-center">
+            <p>&copy; <span id="year"></span> Colin Charpentier - Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/colin-charpentier-a416b0229"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal pour l'affichage en plein écran -->
+    <div class="image-modal">
+        <button class="close-modal">&times;</button>
+        <img class="modal-content" src="" alt="">
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+
+    <!-- Script principal -->
+    <script>
+        // Année automatique dans le footer
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Animation au défilement
+        document.addEventListener('DOMContentLoaded', function () {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const fadeInOnScroll = function () {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+
+            fadeInOnScroll();
+            window.addEventListener('scroll', fadeInOnScroll);
+        });
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Gestion de la galerie d'images et zoom
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.querySelector('.image-modal');
+            const modalImg = modal.querySelector('.modal-content');
+            const closeModalBtn = modal.querySelector('.close-modal');
+            const images = document.querySelectorAll('[data-enlargable]');
+
+            function openModal(imgSrc, imgAlt) {
+                modalImg.src = imgSrc;
+                modalImg.alt = imgAlt;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModalFunc() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            images.forEach(img => {
+                img.addEventListener('click', function () {
+                    openModal(this.src, this.alt);
+                });
+            });
+
+            closeModalBtn.addEventListener('click', closeModalFunc);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModalFunc();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModalFunc();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

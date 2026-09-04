@@ -355,6 +355,33 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
+        a.card {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a.card:hover {
+            color: inherit;
+            text-decoration: none;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: gap 0.2s ease;
+        }
+
+        a.card:hover .card-cta {
+            gap: 0.7rem;
+        }
+
         .card-body {
             padding: clamp(1.5rem, 3vw, 2rem);
         }
@@ -1023,7 +1050,7 @@
 
                 <!-- Projet SNCF -->
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Projet-SNCF.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="mb-3">
                                 <i class="fas fa-chart-line fa-2x text-primary"></i>
@@ -1037,15 +1064,15 @@
                                 <span class="badge bg-primary mb-2">Analyse prospective</span>
                                 <span class="badge bg-primary mb-2">Enquête</span>
                                 <span class="badge bg-primary mb-2">Cartographie</span>
-                                <a href="Projet-SNCF.html" class="btn btn-sm btn-primary mt-2">Voir le projet</a>
+                                <div class="card-cta">Voir le projet <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Projet Gendarmerie -->
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Projet-Gendarmerie.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="mb-3">
                                 <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
@@ -1059,15 +1086,15 @@
                                 <span class="badge bg-primary mb-2">QGIS</span>
                                 <span class="badge bg-primary mb-2">Cartographie</span>
                                 <span class="badge bg-primary mb-2">Analyse territoriale</span>
-                                <a href="Projet-Gendarmerie.html" class="btn btn-sm btn-primary mt-2">Voir le projet</a>
+                                <div class="card-cta">Voir le projet <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Projet Ouest France -->
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Projet-Ouest-France.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="mb-3">
                                 <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
@@ -1080,10 +1107,10 @@
                                 <span class="badge bg-primary mb-2">Webmapping</span>
                                 <span class="badge bg-primary mb-2">JavaScript</span>
                                 <span class="badge bg-primary mb-2">Programmation</span>
-                                <a href="Projet-Ouest-France.html" class="btn btn-sm btn-primary mt-2">Voir le projet</a>
+                                <div class="card-cta">Voir le projet <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
 
@@ -1189,7 +1216,7 @@
 
                 <!-- Stage EGIS Groupe 2026 (NOUVEAU) -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Stage_EGIS.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="logo-container mb-3">
                                 <img src="https://upload.wikimedia.org/wikipedia/fr/5/5b/Logo-egis.gif"
@@ -1203,15 +1230,15 @@
                                 <span class="badge bg-primary mb-2">Deep Learning</span>
                                 <span class="badge bg-primary mb-2">IA</span>
                                 <span class="badge bg-primary mb-2">Mobilité</span>
-                                <a href="Stage_EGIS.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                                <div class="card-cta">Voir le stage <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Stage Bourges Plus 2025 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Stage_BPLUS_2025.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="logo-container mb-3">
                                 <img src="https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
@@ -1225,15 +1252,15 @@
                                 <span class="badge bg-primary mb-2">ArcGIS Pro</span>
                                 <span class="badge bg-primary mb-2">Risques naturels</span>
                                 <span class="badge bg-primary mb-2">Dashboard</span>
-                                <a href="Stage_BPLUS_2025.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                                <div class="card-cta">Voir le stage <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Stage H4GEO -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Stage_H4GEO.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="logo-container mb-3">
                                 <img src="https://raw.githubusercontent.com/UnitaryPage7504/colincharpentier.github.io/main/Images%20Portfolio/H4GEO.png" alt="Logo H4GEO"
@@ -1247,15 +1274,15 @@
                                 <span class="badge bg-primary mb-2">LiDAR</span>
                                 <span class="badge bg-primary mb-2">BIM</span>
                                 <span class="badge bg-primary mb-2">Arpentage</span>
-                                <a href="Stage_H4GEO.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                                <div class="card-cta">Voir le stage <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Stage Bourges Plus 2023 -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm fade-in">
+                    <a href="Stage_BPLUS_2023.html" class="card h-100 shadow-sm fade-in">
                         <div class="card-body d-flex flex-column">
                             <div class="logo-container mb-3">
                                 <img src="https://upload.wikimedia.org/wikipedia/fr/1/18/Logo_bourges_plus.png?20161021081244"
@@ -1269,10 +1296,10 @@
                                 <span class="badge bg-primary mb-2">ArcGIS Pro</span>
                                 <span class="badge bg-primary mb-2">3D Web</span>
                                 <span class="badge bg-primary mb-2">Communication</span>
-                                <a href="Stage_BPLUS_2023.html" class="btn btn-sm btn-primary mt-2">Voir le stage</a>
+                                <div class="card-cta">Voir le stage <span>&rarr;</span></div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
             </div>

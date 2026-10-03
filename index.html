@@ -930,7 +930,138 @@
         .map-cartotheque-item {
             border-left-color: var(--map-color) !important;
         }
-    </style>
+
+        /* ===== Carrière : frise chronologique ===== */
+        .career-timeline { position: relative; list-style: none; margin: 0; padding: 0; }
+        .career-line { position: absolute; top: 22px; left: 50%; width: 2px; margin-left: -1px;
+            height: var(--line-h, 90%); background: rgba(255, 255, 255, 0.1); border-radius: 2px; }
+        .career-line-fill { width: 100%; height: 0; border-radius: 2px;
+            background: linear-gradient(var(--primary), var(--secondary) 80%, #3ddc97);
+            box-shadow: 0 0 14px rgba(108, 99, 255, 0.55); }
+
+        .career-item { --accent: var(--primary); --accent-text: #a29cff; --on-accent: #fff;
+            position: relative; width: 50%; padding: 0 3rem 2.5rem 0; }
+        li.career-item:nth-of-type(even) { margin-left: 50%; padding: 0 0 2.5rem 3rem; }
+        .career-item:last-child { padding-bottom: 0; }
+        .career-item--stage { --accent: var(--secondary); --accent-text: #ff8fa5; }
+        .career-item--current { --accent: #3ddc97; --accent-text: #3ddc97; --on-accent: #08261a; }
+
+        .career-node { position: absolute; top: 0; right: -22px; z-index: 1; width: 44px; height: 44px;
+            display: grid; place-items: center; border-radius: 50%; font-size: 1rem;
+            background: var(--dark); border: 2px solid var(--accent); color: var(--accent-text);
+            transition: background-color .4s, color .4s, box-shadow .4s; }
+        li.career-item:nth-of-type(even) .career-node { right: auto; left: -22px; }
+        .career-item.is-reached .career-node { background: var(--accent); color: var(--on-accent);
+            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.06), 0 0 22px var(--accent); }
+
+        .career-card { position: relative; padding: 1.25rem 1.5rem; border-radius: 16px;
+            background: rgba(30, 30, 30, 0.85); border: 1px solid rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            transition: border-color .4s; }
+        .career-card::before { content: ''; position: absolute; top: 21px; right: calc(-3rem + 22px);
+            width: calc(3rem - 22px); height: 2px; background: rgba(255, 255, 255, 0.1); }
+        li.career-item:nth-of-type(even) .career-card::before { right: auto; left: calc(-3rem + 22px); }
+        .career-item.is-reached .career-card { border-color: rgba(255, 255, 255, 0.16); }
+
+        .career-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-bottom: .6rem; }
+        .career-date { font-weight: 600; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+        .career-type { display: inline-flex; align-items: center; gap: .4rem; padding: .15rem .65rem;
+            border-radius: 999px; font-size: .78rem; font-weight: 500; color: var(--accent-text);
+            background: rgba(255, 255, 255, 0.06); border: 1px solid var(--accent); }
+        .career-item--current .career-type::before { content: ''; width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent); animation: careerPulse 1.8s ease-out infinite; }
+        .career-card h5 { margin: 0 0 .4rem; font-weight: 600; font-size: 1.15rem; color: var(--light); }
+        .career-card p { margin: 0; color: var(--gray-light); font-size: .95rem; line-height: 1.55; max-width: 62ch; }
+
+        @keyframes careerPulse {
+            0% { box-shadow: 0 0 0 0 rgba(61, 220, 151, .6); }
+            100% { box-shadow: 0 0 0 9px rgba(61, 220, 151, 0); }
+        }
+
+        @media (max-width: 767.98px) {
+            .career-line { left: 22px; }
+            .career-item, li.career-item:nth-of-type(even) { width: 100%; margin-left: 0; padding: 0 0 2rem 4rem; }
+            .career-node, li.career-item:nth-of-type(even) .career-node { left: 0; right: auto; }
+            .career-card::before, li.career-item:nth-of-type(even) .career-card::before { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .career-node, .career-card { transition: none; }
+            .career-item--current .career-type::before { animation: none; }
+        }
+    
+        /* Cartes : même révélation que les pictogrammes */
+        .career-card h5:last-child { margin-bottom: 0; }
+        .career-timeline.career-js .career-card { opacity: .3; transform: translateX(-28px);
+            transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1), border-color .5s, box-shadow .5s; }
+        .career-timeline.career-js li.career-item:nth-of-type(even) .career-card { transform: translateX(28px); }
+        .career-timeline.career-js .career-item.is-reached .career-card { opacity: 1; transform: none;
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 26px -8px var(--accent); }
+        @media (max-width: 767.98px) {
+            .career-timeline.career-js .career-card,
+            .career-timeline.career-js li.career-item:nth-of-type(even) .career-card { transform: translateX(22px); }
+            .career-timeline.career-js .career-item.is-reached .career-card { transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .career-timeline.career-js .career-card,
+            .career-timeline.career-js li.career-item:nth-of-type(even) .career-card { opacity: 1; transform: none; transition: none; }
+        }
+    
+        /* ===== Animations globales ===== */
+        /* Révélation : arrivée latérale + halo, comme la frise */
+        .fade-in { opacity: 0; transform: translate(var(--x, 0px), 32px);
+            transition: opacity .7s ease var(--d, 0s), transform .8s cubic-bezier(.2, .7, .2, 1) var(--d, 0s); }
+        .fade-in.visible { opacity: 1; transform: none;
+            animation: revealGlow 1.4s ease-out var(--d, 0s) backwards; }
+        @keyframes revealGlow {
+            0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+            35% { box-shadow: 0 0 0 1px rgba(108, 99, 255, .55), 0 0 30px -6px rgba(108, 99, 255, .6); }
+        }
+        .section-title.fade-in.visible { animation: none; }
+
+        /* Soulignement des titres : se trace à l'arrivée */
+        html.js .section-title::after { width: 0; transition: width .8s cubic-bezier(.2, .7, .2, 1) .35s; }
+        html.js .section-title.visible::after { width: 60px; }
+
+        /* Logos de compétences : apparition en cascade */
+        html.js .fade-in:not(.visible) .skill-item { opacity: 0; }
+        .fade-in.visible .skill-item { animation: skillPop .55s cubic-bezier(.2, .7, .2, 1) backwards; }
+        .fade-in.visible .skill-item:nth-child(1) { animation-delay: calc(var(--d, 0s) + .30s); }
+        .fade-in.visible .skill-item:nth-child(2) { animation-delay: calc(var(--d, 0s) + .42s); }
+        .fade-in.visible .skill-item:nth-child(3) { animation-delay: calc(var(--d, 0s) + .54s); }
+        .fade-in.visible .skill-item:nth-child(4) { animation-delay: calc(var(--d, 0s) + .66s); }
+        @keyframes skillPop {
+            from { opacity: 0; transform: translateY(16px) scale(.85); }
+            to { opacity: 1; transform: none; }
+        }
+
+        /* Entrée de la page : titre, texte, boutons, puis photo */
+        .hero h1, .hero p.lead, .hero .d-flex { animation: heroIn .9s cubic-bezier(.2, .7, .2, 1) backwards; }
+        .hero p.lead { animation-delay: .15s; }
+        .hero .d-flex { animation-delay: .3s; }
+        .hero .profile-container { animation: heroPhoto 1.1s cubic-bezier(.2, .7, .2, 1) .25s backwards; }
+        @keyframes heroIn { from { opacity: 0; transform: translateY(26px); } }
+        @keyframes heroPhoto { from { opacity: 0; transform: translateX(46px) scale(.95); } }
+
+        /* Barre de progression et section active dans le menu */
+        .scroll-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 1100;
+            transform: scaleX(0); transform-origin: left; pointer-events: none;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 12px rgba(108, 99, 255, .6); }
+        .navbar-nav .nav-link.active { color: var(--primary) !important; }
+        .navbar-nav .nav-link.active::after { width: 100%; }
+
+        @media (max-width: 767.98px) { .fade-in { --x: 0px !important; } }
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in, .fade-in.visible { opacity: 1; transform: none; transition: none; animation: none; }
+            html.js .section-title::after { width: 60px; transition: none; }
+            html.js .fade-in:not(.visible) .skill-item { opacity: 1; }
+            .fade-in.visible .skill-item, .hero h1, .hero p.lead, .hero .d-flex, .hero .profile-container { animation: none; }
+            .scroll-progress { display: none; }
+        }
+        </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body class="bg-dark">
@@ -947,6 +1078,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#career">Carrière</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
                     <li class="nav-item"><a class="nav-link" href="#stages">Stages</a></li>
@@ -966,7 +1098,7 @@
                     <h1 class="display-4 fw-bold">Bienvenue dans mon Portfolio ! Je suis <span
                             class="text-primary">Colin Charpentier</span></h1>
                     <p class="lead mt-3">
-                        Étudiant en Master SIGAT (Système d'Information Géographique et Analyse des Territoires) à
+                        Géomaticien chez Egis Groupe, récemment diplômé du Master SIGAT (Système d'Information Géographique et Analyse des Territoires) à
                         l'Université de Rennes 2.
                     </p>
                     <div class="d-flex flex-wrap">
@@ -999,14 +1131,14 @@
                     <div class="bg-section fade-in">
                         <h4 class="mb-3">Mon parcours</h4>
                         <p>
-                            Actuellement en Master SIGAT à l'Université de Rennes 2, je me suis spécialisé en géomatique
+                           Récemment diplômé du Master SIGAT à l'Université de Rennes 2, je me suis spécialisé en géomatique
                             au cours de mes études, et j'aimerais appliquer mes compétences dans des projets qui me
                             tiennent à coeur, comme l'aménagement durable des territoires ou le développement des
                             énergies renouvelables.
                         </p>
                         <p>
                             Au cours de mon parcours, j'ai développé une expertise dans l'utilisation d'outils SIG
-                            (QGIS, ArcGIS), la programmation (Python, R) et la création de visualisations de données
+                            (QGIS, ArcGIS), l'IA appliquée au SIG, la programmation (Python, R) et la création de visualisations de données
                             interactives (html, javascript, css).</span>
                         </p>
                     </div>
@@ -1017,15 +1149,15 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between">
                                 <span><i class="fas fa-map-marker-alt me-2"></i>Localisation</span><span
-                                    class="fw-semibold">Rennes, France</span>
+                                    class="fw-semibold">Lyon, France</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span><i class="fas fa-envelope me-2"></i>Email</span><span
                                     class="fw-semibold">charpentier.colin.63@gmail.com</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span><i class="fas fa-graduation-cap me-2"></i>Formation</span><span
-                                    class="fw-semibold">Master 2 SIGAT</span>
+                                <span><i class="fas fa-graduation-cap me-2"></i>Entreprise</span><span
+                                    class="fw-semibold">Egis Groupe</span>
                             </li>
                         </ul>
                         <div class="social-links text-center mt-4">
@@ -1038,6 +1170,71 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+        <!-- SECTION CARRIÈRE -->
+    <section id="career" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Carrière</h2>
+            <ol class="career-timeline" id="careerTimeline">
+                <div class="career-line" aria-hidden="true"><div class="career-line-fill"></div></div>
+                    <li class="career-item career-item--formation">
+                        <span class="career-node"><i class="fas fa-graduation-cap"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2021</span><span class="career-type">Formation</span></div>
+                            <h5>BUT Carrières Sociales</h5>
+                            <p>IUT de Bourges — découverte des enjeux territoriaux, sociaux et urbains.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--stage">
+                        <span class="career-node"><i class="fas fa-cube"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2023</span><span class="career-type">Stage</span></div>
+                            <h5>Stage Bourges Plus</h5>
+                            <p>Réalisation d'une scène 3D web sur le NPNRU et mise en valeur des données territoriales.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--stage">
+                        <span class="career-node"><i class="fas fa-building"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2024</span><span class="career-type">Stage</span></div>
+                            <h5>Stage H4GEO - Montréal</h5>
+                            <p>Arpentage et collecte de données LiDAR pour la modélisation BIM d'écoles et de bâtiments publics.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--formation">
+                        <span class="career-node"><i class="fas fa-graduation-cap"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2023 - 2026</span><span class="career-type">Formation</span></div>
+                            <h5>Master SIGAT</h5>
+                            <p>Université Rennes 2 — spécialisation en géomatique, analyse spatiale et développement de données géographiques.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--stage">
+                        <span class="career-node"><i class="fas fa-water"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2025</span><span class="career-type">Stage</span></div>
+                            <h5>Stage Bourges Plus</h5>
+                            <p>Dashboard ArcGIS sur le risque inondation dans le cadre du PICS, avec une dimension analyse territoriale et décisionnelle.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--stage">
+                        <span class="career-node"><i class="fas fa-brain"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2026</span><span class="career-type">Stage</span></div>
+                            <h5>Stage EGIS Groupe</h5>
+                            <p>Implémenter l'IA et le deep learning dans les processus de géomatique pour répondre aux enjeux de mobilité.</p>
+                        </article>
+                    </li>
+                    <li class="career-item career-item--current">
+                        <span class="career-node"><i class="fas fa-briefcase"></i></span>
+                        <article class="career-card">
+                            <div class="career-meta"><span class="career-date">2026</span><span class="career-type">CDD en cours</span></div>
+                            <h5>CDD chez Egis Groupe</h5>
+                        </article>
+                    </li>
+            </ol>
         </div>
     </section>
 
@@ -1542,7 +1739,7 @@
                                 <i class="fas fa-map-marker-alt text-primary me-3 fs-5"></i>
                                 <div>
                                     <strong>Localisation</strong><br>
-                                    <span class="text-light">Rennes, France</span>
+                                    <span class="text-light">Lyon, France</span>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-3">
@@ -1589,27 +1786,51 @@
         // Année automatique dans le footer
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Animation au défilement
-        document.addEventListener('DOMContentLoaded', function () {
-            const fadeElements = document.querySelectorAll('.fade-in');
+        // Animations au défilement
+        (function () {
+            document.querySelectorAll('.section-title').forEach(function (t) { t.classList.add('fade-in'); });
+            const els = Array.from(document.querySelectorAll('.fade-in'));
 
-            const fadeInOnScroll = function () {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
+            // Décalage et sens d'arrivée selon la position dans la rangée
+            els.forEach(function (el) {
+                let idx = 0, n = 1;
+                const col = el.closest('[class*="col-"]');
+                if (col) {
+                    const sib = Array.from(col.parentElement.children).filter(function (c) { return /\bcol-/.test(c.className); });
+                    idx = sib.indexOf(col); n = sib.length;
+                }
+                if (n > 1) el.style.setProperty('--x', idx === 0 ? '-28px' : idx === n - 1 ? '28px' : '0px');
+                el.style.setProperty('--d', (idx * 0.12) + 's');
+            });
 
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('visible');
-                    }
+            const io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    const el = e.target;
+                    el.classList.add('visible');
+                    io.unobserve(el);
+                    // le délai ne doit pas ralentir les survols ensuite
+                    setTimeout(function () { el.style.setProperty('--d', '0s'); }, 1800);
                 });
-            };
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            els.forEach(function (el) { io.observe(el); });
 
-            // Vérifier au chargement
-            fadeInOnScroll();
-
-            // Vérifier au défilement
-            window.addEventListener('scroll', fadeInOnScroll);
-        });
+            // Barre de progression + section active du menu
+            const bar = document.createElement('div');
+            bar.className = 'scroll-progress';
+            document.body.appendChild(bar);
+            const links = Array.from(document.querySelectorAll('.navbar-nav .nav-link'));
+            const secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+            function onScroll() {
+                const h = document.documentElement.scrollHeight - window.innerHeight;
+                bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+                let cur = -1;
+                secs.forEach(function (sec, i) { if (sec && sec.getBoundingClientRect().top <= 140) cur = i; });
+                links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
 
         // Navigation fluide
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2069,6 +2290,39 @@
             // Initialisation
             updateSlider();
         });
+    </script>
+
+    <!-- Carrière : la ligne se remplit au défilement -->
+    <script>
+        (function () {
+            const tl = document.getElementById('careerTimeline');
+            if (!tl) return;
+            const fill = tl.querySelector('.career-line-fill');
+            const items = Array.from(tl.querySelectorAll('.career-item'));
+            const R = 22; // rayon des pastilles
+            tl.classList.add('career-js');
+
+            function layout() {
+                const top = tl.getBoundingClientRect().top;
+                const last = items[items.length - 1].querySelector('.career-node').getBoundingClientRect();
+                tl.style.setProperty('--line-h', (last.top - top) + 'px');
+            }
+            function update() {
+                const top = tl.getBoundingClientRect().top;
+                const mid = window.innerHeight * 0.6;
+                const total = parseFloat(getComputedStyle(tl).getPropertyValue('--line-h')) || 0;
+                fill.style.height = Math.max(0, Math.min(total, mid - top - R)) + 'px';
+                items.forEach(function (it) {
+                    const n = it.querySelector('.career-node').getBoundingClientRect();
+                    it.classList.toggle('is-reached', n.top + R <= mid);
+                });
+            }
+            function refresh() { layout(); update(); }
+            window.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', refresh);
+            window.addEventListener('load', refresh);
+            refresh();
+        })();
     </script>
 
 </body>
